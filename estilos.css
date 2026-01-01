@@ -1,0 +1,152 @@
+/* --- BASE RETRO --- */
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #008080; /* El clásico verde azulado de Win95 */
+    font-family: 'Pixelify Sans', sans-serif;
+    color: #000;
+}
+
+/* --- CONTENEDOR PRINCIPAL --- */
+.desktop-wrapper {
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.retro-sidebar {
+    width: 250px;
+    background: #c0c0c0;
+    border: 3px solid;
+    border-color: #fff #808080 #808080 #fff; /* Efecto 3D */
+    display: flex;
+    flex-direction: column;
+}
+
+.window-header {
+    background: linear-gradient(90deg, #000080, #1084d0); /* Azul Windows */
+    color: white;
+    padding: 4px 8px;
+    font-weight: bold;
+    font-size: 0.8rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.sidebar-content {
+    padding: 15px;
+}
+
+.folder-title {
+    font-weight: bold;
+    border-bottom: 2px solid #808080;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.retro-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.retro-sidebar a {
+    color: #000;
+    text-decoration: none;
+    display: block;
+    padding: 3px 0;
+}
+
+.retro-sidebar a:hover {
+    background: #000080;
+    color: white;
+}
+
+
+.main-window {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.retro-window {
+    background: #c0c0c0;
+    border: 3px solid;
+    border-color: #fff #808080 #808080 #fff;
+}
+
+.window-body {
+    padding: 20px;
+    border: 2px inset #fff;
+    margin: 5px;
+    background: #fff;
+}
+
+.window-body.no-padding { padding: 0; }
+
+.hero-flex {
+    display: flex;
+    gap: 20px;
+}
+
+.pixel-avatar {
+    width: 120px;
+    border: 2px solid #000;
+}
+
+.pixel-title {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.2rem;
+    margin-top: 0;
+}
+
+
+.retro-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.retro-table th {
+    background: #e0e0e0;
+    text-align: left;
+    padding: 8px;
+    border: 1px solid #808080;
+}
+
+.retro-table td {
+    padding: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.retro-table tr:hover { background: #ffffca; }
+
+
+@media (max-width: 768px) {
+    .desktop-wrapper {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .retro-sidebar {
+        width: 100%;
+        height: auto;
+    }
+
+    .sidebar-content {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .folder-group { flex: 1; min-width: 120px; }
+
+    .hero-flex {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+}

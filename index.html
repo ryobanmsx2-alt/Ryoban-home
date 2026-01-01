@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ryoban OS - Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<div id="lock-screen" style="
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #000;
+    color: #00C0FF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    font-family: 'Space Mono', monospace;
+    text-align: center;">
+    
+    <h2 style="font-size: 1.5rem; margin-bottom: 20px;">[ ACCESO RESTRINGIDO ]</h2>
+    <p style="margin-bottom: 20px; color: #fff;">Solo seguidores autorizados de RYOBAN.</p>
+    
+    <input type="password" id="pass-input" placeholder="Ingresa la clave..." style="
+        background: #111;
+        border: 2px solid #00C0FF;
+        color: #fff;
+        padding: 10px;
+        font-family: 'Space Mono', monospace;
+        outline: none;
+        margin-bottom: 15px;
+        text-align: center;">
+    
+    <button onclick="checkPass()" style="
+        background: #00C0FF;
+        color: #000;
+        border: none;
+        padding: 10px 25px;
+        cursor: pointer;
+        font-weight: bold;
+        font-family: 'Space Mono', monospace;">ENTRAR</button>
+        
+    <p id="error-msg" style="color: red; margin-top: 15px; font-size: 0.8rem; display: none;">CLAVE INCORRECTA. ACCESO DENEGADO.</p>
+</div>
+
+<script>
+    function checkPass() {
+        // AQUÍ ELIGES TU CONTRASEÑA
+        const secret = "satelite2006"; 
+        const input = document.getElementById('pass-input').value;
+        const lockScreen = document.getElementById('lock-screen');
+        const error = document.getElementById('error-msg');
+
+        if (input === secret) {
+            lockScreen.style.display = 'none';
+            // Guardamos que ya entró para que no pida la clave cada vez que refresque
+            sessionStorage.setItem('accessGranted', 'true');
+        } else {
+            error.style.display = 'block';
+        }
+    }
+
+    // Si ya puso la clave en esta sesión, no se la volvemos a pedir
+    if (sessionStorage.getItem('accessGranted') === 'true') {
+        document.getElementById('lock-screen').style.display = 'none';
+    }
+</script>
+
+<body>
+
+    <div class="desktop-wrapper">
+        
+        <aside class="retro-sidebar">
+            <div class="window-header">Explorador</div>
+            
+            <div class="sidebar-content">
+                <nav class="folder-group">
+                    <p class="folder-title">C:\RYOBAN\MENU</p>
+                    <ul>
+                        <li><a href="#">[ Principal ]</a></li>
+                        <li><a href="#">[ Bitácora ]</a></li>
+                        <li><a href="paraxterra.html">[ Paraxterra ]</a></li>
+                        <li><a href="#">[ Archivos ]</a></li>
+                    </ul>
+                </nav>
+
+                <nav class="folder-group">
+                    <p class="folder-title">C:\SOCIAL</p>
+                    <ul>
+                        <li><a href="#">[ Instagram ]</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="sidebar-status">
+                    <p>Sistema: Online</p>
+                    <p>Memoria: 640KB OK</p>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-window">
+            
+            <section class="retro-window">
+                <div class="window-header">
+                    <span>BIENVENIDO.exe</span>
+                    <div class="controls">_ [] X</div>
+                </div>
+                <div class="window-body">
+                    <div class="hero-flex">
+                        <div class="profile-container">
+                            <img src="a13.png" alt="Ryoban" class="pixel-avatar">
+                        </div>
+                        <div class="hero-text">
+                            <h2 class="pixel-title">HOLA.</h2>
+                            <p>Soy <strong>Ryoban</strong>. Artista conceptual y el unico imbecil a cargo de esto. Anteriormente familiarizado con las firmas de Moru Y Khoa. Este espacio esta dedicado a todas las personas que enncuetren interesante desaparecer de toda la mierda generalizada de la web convencional.</p>
+                            <p>Usa el panel de la izquierda para navegar por los sub-directorios.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="retro-window">
+                <div class="window-header">
+                    <span>DIRECTORIO_DE_ARCHIVOS</span>
+                </div>
+                <div class="window-body no-padding">
+                    <table class="retro-table">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Tipo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="paraxterra.html">PARAXTERRA</a></td>
+                                <td>PARAX ° Terra (tierra paralela). Un proyecto que ha estado mutando desde el año 2022. La historia sigue a Adeline, una Yatarka del sur, que se autoimplica en la delicada tarea de dormir en un mundo donde el sol se ha quedado estatico en un mismo lugar desde hace miles de años.</td>
+                                <td>PROYECTO</td>
+                            </tr>
+                            <tr>
+                                <td>MÚSICA</td>
+                                <td>Tracks y beats para escuchar. La mayoria de canciones que he estado esuchando desde hace 12 años, algunas implicaron cambios radicales en mis personajes, digamos que este espacio es un tributo deciso a aquellas canciones que me marcaron significativamente.</td>
+                                <td>AUDIO</td>
+                            </tr>
+                            <tr>
+                                <td>BLOG</td>
+                                <td>Pensamientos, disfruten lo votado</td>
+                                <td>TXT</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+</body>
+</html>

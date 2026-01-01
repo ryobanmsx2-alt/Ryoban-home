@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ryoban OS - Reproductor de Medios</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="musica.css">
+</head>
+<body>
+
+    <div class="player-wrapper">
+        <header class="window-header">
+            <span>RYOBAN_PLAYER.exe</span>
+            <div class="controls">
+                <a href="index.html" style="color: white; text-decoration: none;">[ VOLVER ]</a>
+                <span> _ [] X </span>
+            </div>
+        </header>
+
+        <main class="player-body">
+            <section class="visualizer-section">
+                <canvas id="visualizer"></canvas>
+                <div class="v-overlay"></div> 
+            </section>
+
+            <section class="info-section">
+                <div id="now-playing">SELECCIONE UN TRACK</div>
+                <input type="range" id="seek-bar" value="0" min="0" step="1">
+                <div id="time-display">00:00 / 00:00</div>
+            </section>
+
+            <section class="playlist-section">
+                <ul class="tracklist" id="myTracklist">
+                <li data-src="cancion2.mp3">01. Furries in a blender - Im Alive</li>
+                <li data-src="Cancion1.mp3">02. DOB - ブルーな一日</li>
+                <li data-src="Cancion3.mp3">03. Darius - Please Drive</li>
+                <li data-src="Cancion4.mp3">04. Darius + Rotten - Why Wolves</li>
+                <li data-src="Cancion5.mp3">05. Stereolab - Orgiastic</li>
+                <li data-src="Cancion6.mp3">06. NEKO - X + Y (2006 Mix)</li>
+                <li data-src="Cancion7.mp3">07. The Queenstons - Going Back</li>
+                </ul>
+            </section>
+
+            <footer class="player-footer">
+                <button id="play-pause-btn" class="retro-btn">▶ PLAY</button>
+                <div class="volume-container">
+                    <span>VOL:</span>
+                    <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.5">
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <audio id="audio-player" crossorigin="anonymous"></audio>
+
+    <script>
+        const audioPlayer = document.getElementById('audio-player');
+        const canvas = document.getElementById('visualizer');
+        const canvasCtx = canvas.getContext('2d');
+        const tracklist = document.querySelectorAll('.tracklist li');
+        const playBtn = document.getElementById('play-pause-btn');
+        const timeDisplay = document.getElementById('time-display');
+        const seekBar = document.getElementById('seek-bar');
+        const nowPlayingText = document.getElementById('now-playing');
+        const volumeSlider = document.getElementById('volume-slider');
+
+        let audioCtx, analyser, source;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                analyser = audioCtx.createAnalyser();
+                source = audioCtx.createMediaElementSource(audioPlayer);
+                
+                // Conexión: Archivo -> Analizador -> Altavoces
+                source.connect(analyser);
+                analyser.connect(audioCtx.destination);
+                
+                analyser.fftSize = 256;
+                draw();
+            }
+            
+            // "Despertar" el audio si el navegador lo bloqueó
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function draw() {
+            const bufferLength = analyser.frequencyBinCount;
+            const dataArray = new Uint8Array(bufferLength);
+            
+            requestAnimationFrame(draw);
+            analyser.getByteTimeDomainData(dataArray);
+
+            canvasCtx.fillStyle = '#000';
+            canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+            canvasCtx.lineWidth = 2;
+            canvasCtx.strokeStyle = '#00ff00'; 
+            canvasCtx.beginPath();
+
+            let sliceWidth = canvas.width * 1.0 / bufferLength;
+            let x = 0;
+
+            for (let i = 0; i < bufferLength; i++) {
+                let v = dataArray[i] / 128.0;
+                let y = v * canvas.height / 2;
+                if (i === 0) canvasCtx.moveTo(x, y);
+                else canvasCtx.lineTo(x, y);
+                x += sliceWidth;
+            }
+            canvasCtx.lineTo(canvas.width, canvas.height / 2);
+            canvasCtx.stroke();
+        }
+
+        tracklist.forEach(track => {
+            track.addEventListener('click', () => {
+                initAudio();
+                tracklist.forEach(t => t.classList.remove('active'));
+                track.classList.add('active');
+                
+                const src = track.getAttribute('data-src');
+                audioPlayer.src = src;
+                nowPlayingText.textContent = track.textContent;
+                
+                audioPlayer.play();
+                playBtn.textContent = "II PAUSE";
+            });
+        });
+
+        playBtn.addEventListener('click', () => {
+            if (!audioPlayer.src) return;
+            initAudio();
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+                playBtn.textContent = "II PAUSE";
+            } else {
+                audioPlayer.pause();
+                playBtn.textContent = "▶ PLAY";
+            }
+        });
+
+        audioPlayer.addEventListener('timeupdate', () => {
+            if (!isNaN(audioPlayer.duration)) {
+                seekBar.max = audioPlayer.duration;
+                seekBar.value = audioPlayer.currentTime;
+                timeDisplay.textContent = formatTime(audioPlayer.currentTime) + " / " + formatTime(audioPlayer.duration);
+            }
+        });
+
+        seekBar.addEventListener('input', () => audioPlayer.currentTime = seekBar.value);
+        
+        volumeSlider.addEventListener('input', () => {
+            audioPlayer.volume = volumeSlider.value;
+        });
+
+        function formatTime(s) {
+            let min = Math.floor(s / 60);
+            let sec = Math.floor(s % 60);
+            return (min < 10 ? '0' : '') + min + ":" + (sec < 10 ? '0' : '') + sec;
+        }
+    </script>
+</body>
+</html>

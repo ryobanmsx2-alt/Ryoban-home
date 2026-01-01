@@ -1,0 +1,82 @@
+* { box-sizing: border-box; }
+body {
+    background-color: #008080; /* Fondo verde Win95 */
+    font-family: 'Pixelify Sans', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.player-wrapper {
+    width: 90%;
+    max-width: 500px;
+    background: #c0c0c0;
+    border: 3px solid;
+    border-color: #fff #808080 #808080 #fff;
+    box-shadow: 10px 10px 0 rgba(0,0,0,0.2);
+}
+
+.window-header {
+    background: linear-gradient(90deg, #000080, #1084d0);
+    color: white;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+}
+
+.player-body {
+    padding: 10px;
+}
+
+/* --- VISUALIZADOR --- */
+.visualizer-section {
+    background: #000;
+    height: 150px;
+    position: relative;
+    border: 3px inset #808080;
+    overflow: hidden;
+}
+
+#visualizer { width: 100%; height: 100%; }
+
+.v-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 4px, 3px 100%;
+    pointer-events: none;
+}
+
+/* --- CONTROLES --- */
+.info-section { margin: 15px 0; text-align: center; }
+#now-playing { font-size: 0.9rem; margin-bottom: 10px; color: #000080; font-weight: bold; }
+
+#seek-bar, #volume-slider { width: 100%; cursor: pointer; }
+
+.playlist-section {
+    background: #fff;
+    border: 2px inset #fff;
+    height: 120px;
+    overflow-y: auto;
+    margin-bottom: 15px;
+}
+
+.tracklist { list-style: none; padding: 0; margin: 0; }
+.tracklist li { padding: 5px; cursor: pointer; border-bottom: 1px solid #eee; font-size: 0.8rem; }
+.tracklist li:hover { background: #000080; color: #fff; }
+.tracklist li.active { background: #000080; color: #FFEA70; }
+
+.player-footer { display: flex; justify-content: space-between; align-items: center; }
+.retro-btn {
+    padding: 10px 20px;
+    background: #c0c0c0;
+    border: 2px solid;
+    border-color: #fff #808080 #808080 #fff;
+    font-family: 'Pixelify Sans', sans-serif;
+    cursor: pointer;
+}
+.retro-btn:active { border-color: #808080 #fff #fff #808080; }
