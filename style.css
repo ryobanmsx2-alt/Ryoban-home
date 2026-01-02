@@ -1,18 +1,14 @@
-
+/* --- BASES --- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { 
-    font-family: 'Space Mono', monospace; 
-    background-color: #f0f0f0; 
-    color: #333; 
-}
+body { font-family: 'Space Mono', monospace; background-color: #f0f0f0; }
 
-
+/* --- EL CONTENEDOR QUE TE FALTABA --- */
 .layout-container {
     display: flex;
     min-height: 100vh;
 }
 
-
+/* --- SIDEBAR NEGRA --- */
 .sidebar-nav {
     width: 260px;
     background: #000;
@@ -21,36 +17,19 @@ body {
     border-right: 2px solid #333;
 }
 
-.nav-group { margin-bottom: 30px; }
-.nav-group h3 { 
-    color: #fff; 
-    font-size: 0.9rem; 
-    border-bottom: 1px solid #222; 
-    padding-bottom: 5px;
-    margin-bottom: 15px;
-}
+.nav-group h3 { color: #fff; border-bottom: 1px solid #222; margin-bottom: 15px; }
 .nav-group ul { list-style: none; }
-.nav-group li { margin-bottom: 10px; }
-.nav-group a { 
-    color: #00C0FF; 
-    text-decoration: none; 
-}
-.nav-group a:hover { text-decoration: underline; color: #fff; }
+.nav-group a { color: #00C0FF; text-decoration: none; }
 .nav-group a.active { color: #fff; font-weight: bold; }
 
+/* --- VENTANA Y CONTENIDO --- */
+.content-body { flex: 1; padding: 30px; background: #e8e8e8; }
 
-.content-body {
-    flex: 1;
-    padding: 30px;
-    background: #e8e8e8;
-}
-
-/* --- VENTANA RETRO --- */
 .window-wrapper {
     background: #fff;
     border: 2px solid #000;
     box-shadow: 5px 5px 0px rgba(0,0,0,0.1);
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
 }
 
@@ -58,43 +37,99 @@ body {
     background: linear-gradient(90deg, #000080, #1084d0);
     color: white;
     padding: 6px 12px;
-    font-size: 0.8rem;
     display: flex;
     justify-content: space-between;
 }
 
+.main-profile-flex { display: flex; gap: 40px; padding: 30px; }
 
-.profile-content { padding: 30px; }
-.profile-header-flex { display: flex; gap: 25px; align-items: center; margin-bottom: 25px; }
-
-.profile-avatar {
-    width: 120px;
-    height: 120px;
-    border: 3px solid #000;
+/* --- AJUSTE DE LA IMAGEN (Para que no sea gigante) --- */
+.img-profile-giant {
+    width: 320px; /* Tamaño controlado */
+    height: auto;
     image-rendering: pixelated;
+    border: 2px solid #000;
 }
 
-.pixel-name { font-family: 'Pixelify Sans', sans-serif; font-size: 2.5rem; }
-.acronym { font-size: 0.8rem; color: #666; }
-.badge {
-    background: #00ff00;
-    color: #000;
-    padding: 2px 12px;
-    font-size: 0.75rem;
-    border: 1px solid #000;
-    font-weight: bold;
-}
-
-.pixel-divider { border-top: 2px dashed #ccc; margin: 25px 0; border-bottom: 0; }
-.skill-list { list-style: none; margin-bottom: 30px; color: #0066cc; }
+.profile-info-column { flex: 1; }
+.pixel-name { font-family: 'Pixelify Sans', sans-serif; font-size: 2rem; }
+.skill-list { list-style: none; color: #0066cc; }
 .skill-list li::before { content: "> "; }
 
-.dir-header { background: #ddd; padding: 8px 12px; font-weight: bold; border: 1px solid #bbb; }
-.dir-row { display: flex; border-bottom: 1px solid #ddd; padding: 12px; font-size: 0.85rem; }
-.dir-cell-label { width: 140px; font-weight: bold; color: #0066cc; }
+
+.dir-header { background: #ddd; padding: 8px; border: 1px solid #bbb; font-weight: bold; }
+.dir-row { display: flex; border-bottom: 1px solid #ddd; padding: 10px; font-size: 0.85rem; }
+.dir-cell-label { width: 130px; font-weight: bold; color: #0066cc; }
+
+
+.bio-text {
+    line-height: 1.8; 
+    margin-bottom: 25px;
+}
+
+
+.skill-list li {
+    margin-bottom: 12px; 
+    line-height: 1.5;
+}
+
+
+.section-title {
+    margin-top: 25px;    
+    margin-bottom: 15px; 
+    letter-spacing: 1px; 
+}
+
+.profile-info-column {
+    padding-left: 20px; 
+}
+
+
+.status-box {
+    margin-bottom: 30px; 
+}
+
+.pixel-name {
+    margin-bottom: 10px;
+    letter-spacing: 1px; 
+}
+
+/* --- ESTILO ARCHIVO HISTÓRICO --- */
+.legacy-section {
+    margin-top: 40px; /* Espacio extra para que respire el diseño */
+}
+
+.legacy-container {
+    padding: 20px;
+    background: #c0c0c0; /* Gris Windows 95 */
+    border-top: 2px solid #808080;
+    border-left: 2px solid #808080;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+}
+
+.legacy-frame {
+    display: flex;
+    justify-content: center;
+    background: #000; /* Fondo negro para resaltar la ilustración */
+    padding: 10px;
+    border: 2px inset #fff; /* Efecto de profundidad retro */
+}
+
+.img-legacy-large {
+    max-width: 100%;
+    height: auto;
+    image-rendering: pixelated; /* Mantiene la nitidez de tus dibujos */
+    border: 1px solid #00C0FF; /* Borde cian para conectar con el estilo Ryoban */
+}
+
+/* Espaciado extra al final de la página */
+.profile-content {
+    padding-bottom: 50px;
+}
 
 /* MÓVIL */
-@media (max-width: 768px) {
+@media (max-width: 800px) {
     .layout-container { flex-direction: column; }
-    .sidebar-nav { width: 100%; }
+    .main-profile-flex { flex-direction: column; align-items: center; }
 }
