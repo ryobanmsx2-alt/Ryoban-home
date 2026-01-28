@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ryoban OS - Archive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="stylesheet" href="archivos.css">
+</head>
+
+        <main class="content-body">
+            <div class="window-wrapper">
+                <header class="window-header-retro">
+                    <span>EXPLORER: STORAGE_DRIVE_D</span>
+                    <div class="controls"> _ [] X </div>
+                </header>
+
+                <div class="profile-content">
+                    <h3 class="section-title">[ GALERÍA DE ARCHIVOS ]</h3>        
+<div class="gallery-grid">
+    <div class="gallery-item">
+        <div class="img-frame">
+            <img src="1.jpg" alt="Sketch 01">
+        </div>
+        <span class="file-name">sketch_01.png</span>
+    </div>
+
+    <div class="gallery-item">
+        <div class="img-frame">
+            <img src="2.jpg" alt="Descripción">
+        </div>
+        <span class="file-name">sketch_02.png</span>
+    </div>
+
+        <div class="gallery-item">
+        <div class="img-frame">
+            <img src="3.jpg" alt="Descripción">
+        </div>
+        <span class="file-name">sketch_03.png</span>
+    </div>
+
+                <div class="gallery-item">
+        <div class="img-frame">
+            <img src="qaz1.png" alt="Descripción">
+        </div>
+        <span class="file-name">Parax_bef01.png</span>
+    </div>
+
+                    <div class="gallery-item">
+        <div class="img-frame">
+            <img src="wsx1.png" alt="Descripción">
+        </div>
+        <span class="file-name">Parax_bef02.png</span>
+    </div>
+
+    </div>
+                        </div>
+                        </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="imageModal" class="modal-overlay">
+    <div class="modal-window">
+        <header class="window-header-retro">
+            <span id="modal-filename">VIEWER: IMAGE_DATA.png</span>
+            <div class="controls" onclick="closeModal()" style="cursor: pointer;"> [ X ] </div>
+        </header>
+        <div class="modal-body">
+            <img id="img-expanded" src="" alt="Vista ampliada">
+        </div>
+        <footer class="modal-footer">
+            <button class="retro-btn" onclick="closeModal()">CERRAR</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openModal(imgElement) {
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("img-expanded");
+        const caption = document.getElementById("modal-filename");
+
+        modal.style.display = "flex";
+        modalImg.src = imgElement.src;
+        caption.innerText = "VIEWER: " + imgElement.closest('.gallery-item').querySelector('.file-name').innerText;
+    }
+
+    function closeModal() {
+        document.getElementById("imageModal").style.display = "none";
+    }
+
+
+    window.onclick = function(event) {
+        const modal = document.getElementById("imageModal");
+        if (event.target == modal) {
+            closeModal();
+        }
+    }
+
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("img-expanded");
+    const caption = document.getElementById("modal-filename");
+
+
+    document.querySelectorAll('.gallery-item img').forEach(img => {
+        img.style.cursor = "pointer"; 
+        img.addEventListener('click', function() {
+            modal.style.display = "flex";
+            modalImg.src = this.src;
+
+            const fileName = this.closest('.gallery-item').querySelector('.file-name').innerText;
+            caption.innerText = "VIEWER: " + fileName;
+        });
+    });
+
+    function closeModal() {
+        modal.style.display = "none";
+    }
+
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+</script>
+    
+</script>
+
+
+
+</body>
+</html>

@@ -7,67 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="estilos.css">
 </head>
-<div id="lock-screen" style="
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: #000;
-    color: #00C0FF;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    font-family: 'Space Mono', monospace;
-    text-align: center;">
-    
-    <h2 style="font-size: 1.5rem; margin-bottom: 20px;">[ ACCESO RESTRINGIDO ]</h2>
-    <p style="margin-bottom: 20px; color: #fff;">Solo seguidores autorizados de RYOBAN.</p>
-    
-    <input type="password" id="pass-input" placeholder="Ingresa la clave..." style="
-        background: #111;
-        border: 2px solid #00C0FF;
-        color: #fff;
-        padding: 10px;
-        font-family: 'Space Mono', monospace;
-        outline: none;
-        margin-bottom: 15px;
-        text-align: center;">
-    
-    <button onclick="checkPass()" style="
-        background: #00C0FF;
-        color: #000;
-        border: none;
-        padding: 10px 25px;
-        cursor: pointer;
-        font-weight: bold;
-        font-family: 'Space Mono', monospace;">ENTRAR</button>
-        
-    <p id="error-msg" style="color: red; margin-top: 15px; font-size: 0.8rem; display: none;">CLAVE INCORRECTA. ACCESO DENEGADO.</p>
-</div>
-
-<script>
-    function checkPass() {
-        // AQUÍ ELIGES TU CONTRASEÑA
-        const secret = "satelite"; 
-        const input = document.getElementById('pass-input').value;
-        const lockScreen = document.getElementById('lock-screen');
-        const error = document.getElementById('error-msg');
-
-        if (input === secret) {
-            lockScreen.style.display = 'none';
-            // Guardamos que ya entró para que no pida la clave cada vez que refresque
-            sessionStorage.setItem('accessGranted', 'true');
-        } else {
-            error.style.display = 'block';
-        }
-    }
-
-    // Si ya puso la clave en esta sesión, no se la volvemos a pedir
-    if (sessionStorage.getItem('accessGranted') === 'true') {
-        document.getElementById('lock-screen').style.display = 'none';
-    }
-</script>
 
 <body>
 
@@ -81,7 +20,7 @@
                     <p class="folder-title">C:\RYOBAN\MENU</p>
                     <ul>
                         <li><a href="ryoban.html">[ Principal: Alias Ryoban ]</a></li>
-                        <li><a href="#">[ Archivos ]</a></li>
+                        <li><a href="archivos.html">[ Archivos ]</a></li>
                     </ul>
                 </nav>
 
@@ -145,6 +84,11 @@
                                 <td>AUDIO</td>
                             </tr>
                             <tr>
+                                <td>BLOG</td>
+                                <td>Pensamientos, algunas cosas pasajeras que me han ocurrido duarnte toda la vida</td>
+                                <td>TXT</td>
+                            </tr>
+                                                        <tr>
                                 <td>BLOG</td>
                                 <td>Pensamientos, disfruten lo votado</td>
                                 <td>TXT</td>
