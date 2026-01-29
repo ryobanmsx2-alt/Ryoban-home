@@ -1,7 +1,7 @@
-/* --- DISEÑO DE CUADRÍCULA --- */
+
 .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); /* Se ajusta solo en móviles */
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); 
     gap: 15px;
     background: #fff;
     border: 2px inset #808080;
@@ -20,15 +20,15 @@
 .img-frame img {
     max-width: 100%;
     max-height: 100%;
-    /* 1. Mantiene la proporción sin deformar */
+
     object-fit: contain; 
-    /* 2. Mantiene los píxeles nítidos para tu arte conceptual */
+
     image-rendering: pixelated; 
-    /* 3. Evita que el navegador fuerce tamaños raros */
+
     display: block;
 }
 .img-frame {
-    /* Fondo oscuro para que resalte el dibujo */
+
     background: #000 !important; 
     border: 2px inset #808080;
     display: flex;
@@ -42,7 +42,7 @@
     color: #000;
 }
 
-/* Efecto de selección estilo Windows antiguo */
+
 .gallery-item:hover {
     background: #000080;
 }
@@ -50,13 +50,11 @@
     color: #fff;
 }
 
-/* --- ESTILO DEL MODAL --- */
 .modal-overlay {
-    display: none; /* Oculto por defecto */
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.8); /* Fondo oscuro transparente */
+    background: rgba(0, 0, 0, 0.8); 
     z-index: 10000;
     justify-content: center;
     align-items: center;
@@ -76,7 +74,7 @@
 
 .modal-body {
     padding: 10px;
-    background: #000; /* Fondo negro para que resalte el arte */
+    background: #000; 
     border: 2px inset #fff;
     display: flex;
     justify-content: center;
@@ -84,31 +82,31 @@
 }
 
 #img-expanded {
-    /* 1. Define límites máximos para que no se salga de la pantalla */
+
     max-width: 100%;
     max-height: 80vh; 
     
-    /* 2. FUERZA a mantener la proporción original */
+
     width: auto;
     height: auto;
     
-    /* 3. Asegura que no se estire si el contenedor es más grande */
+
     object-fit: contain; 
     
-    /* 4. Mantiene el estilo nítido de tus dibujos antiguos y nuevos */
+
     image-rendering: pixelated; 
     
-    border: 1px solid #00C0FF; /* Opcional: un borde cian estilo Ryoban */
+    border: 1px solid #00C0FF; 
 }
 
-/* Ajuste extra para el contenedor del modal */
+
 .modal-body {
     padding: 10px;
     background: #000;
     border: 2px inset #fff;
     display: flex;
     justify-content: center;
-    align-items: center; /* Centra la imagen verticalmente sin estirarla */
+    align-items: center; 
     overflow: auto;
 }
 .modal-footer {

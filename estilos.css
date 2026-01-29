@@ -74,7 +74,7 @@ body {
 
 .retro-window {
     background: #c0c0c0;
-    border: 3px solid;
+    border: 2px solid;
     border-color: #fff #808080 #808080 #fff;
 }
 
@@ -123,6 +123,50 @@ body {
 }
 
 .retro-table tr:hover { background: #ffffca; }
+
+/* --- FOOTER DE BOTONES MÁS PEQUEÑO --- */
+.badges-footer {
+    margin-top: 20px;
+    background: #c0c0c0;
+    border-top: 2px solid #808080;
+    padding: 5px 10px; /* Reducimos el grosor total */
+}
+
+.badges-footer .dir-header {
+    font-size: 0.65rem; /* Texto más pequeño y discreto */
+    margin-bottom: 4px;
+    color: #444;
+}
+
+.badge-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 8px; /* Reducimos el espacio interno */
+    justify-content: center; /* ESTO CENTRA LOS BOTONES */
+    background: #b0b0b0; /* Un gris un poco más oscuro para dar profundidad */
+    border: 1px inset #fff;
+    max-width: 600px; /* Evita que el cuadro gris se estire por toda la pantalla */
+    margin: 0 auto; /* Centra el cuadro gris completo */
+}
+
+.badge-list img {
+    width: 88px;
+    height: 31px;
+    image-rendering: pixelated;
+    border: 1px solid #000;
+}
+
+.cursor {
+    font-weight: bold;
+    color: #00ff00; /* Verde terminal */
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    from, to { color: transparent; }
+    50% { color: #00ff00; }
+}
 
 
 @media (max-width: 768px) {

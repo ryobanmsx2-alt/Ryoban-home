@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RYOBAN OS - Palmer File</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Palmer.css">
+</head>
+<body>
+
+    <div class="desktop-emulator">
+        <div class="window-wrapper">
+            <header class="window-header">
+                <span>FILE_VIEWER: /METAL WORMS/PALMER_09.dat</span>
+                <div class="window-controls"> _ [] X </div>
+            </header>
+
+            <main class="window-body">
+                <div class="profile-layout">
+                    
+                    <section class="side-panel">
+                        <div class="portrait-frame">
+                            <img src="p1.jpg" alt="Palmer Portrait" class="pixel-art">
+                        </div>
+                        <div class="technical-stats">
+                            <p><strong>ESPECIE:</strong> Diurna</p>
+                            <p><strong>DIETA:</strong> Carnívoro</p>
+                            <p><strong>ESTADO:</strong> Activo</p>
+                        </div>
+                    </section>
+
+                    <section class="info-panel">
+                        <div class="header-main">
+                            <h1 class="pixel-title">SUBJECT: PALMER</h1>
+                            <div class="badge-origin">ORIGEN: ASCEND</div>
+                        </div>
+
+                        <hr class="divider">
+
+                        <div class="data-group">
+                            <h3 class="section-label">[ REGISTRO HISTÓRICO ]</h3>
+                            <p class="data-text">
+                                Palmer fue creado por la organización ASCEND, donde permaneció bajo observación durante nueve años. 
+                                Es un sujeto relajado pero siempre alerta; su naturaleza desconfiada es una respuesta directa a su entorno.
+                            </p>
+                        </div>
+
+                        <div class="data-group">
+                            <h3 class="section-label">[ CAPACIDADES ANALÍTICAS ]</h3>
+                            <ul class="data-list">
+                                <li><strong>Oído Hiper-sensible:</strong> Capacidad de escuchar latidos cardíacos para detectar engaños.</li>
+                                <li><strong>Aptitud Musical:</strong> Guitarrista y aspirante a compositor de géneros experimentales.</li>
+                            </ul>
+                            
+                            <div class="data-group">
+    <h3 class="section-label">[ PLAYLIST ]</h3>
+    <div class="retro-media-player">
+        <div class="track-info">
+            <span id="current-track-name">
+            CANCIONES FAVORITAS</span>
+        </div>
+        <ul class="playlist">
+            <li onclick="playSong('song1.mp3', 'EXPERIMENTAL_DEMO_01.mp3')">01. Massive Attack - Karmacoma</li>
+            <li onclick="playSong('song2.mp3', 'GUITAR_SOLO_A.mp3')">02. Massive Attack - Safe form harm</li>
+            <li onclick="playSong('song3.mp3', 'GENRE_FUSION_TEST.mp3')">03. Massive Attack - Light my fire</li>
+        </ul>
+        <audio id="palmer-audio" src=""></audio>
+        <div class="player-controls">
+            <button class="retro-btn" onclick="toggleAudio()">▶ PLAY / II PAUSE</button>
+        </div>
+    </div>
+</div>
+
+<div class="data-group">
+    <h3 class="section-label">[ ARCHIVOS_VISUALES / SKETCHES ]</h3>
+    <div class="mini-gallery-grid">
+        <div class="sketch-item">
+            <img src="Pal1.jpg" alt="Sketch 1" onclick="openModal(this.src)">
+            <span class="file-tag">IMG_001.raw</span>
+        </div>
+        <div class="sketch-item">
+            <img src="Pal2.jpg" alt="Sketch 2" onclick="openModal(this.src)">
+            <span class="file-tag">IMG_002.raw</span>
+        </div>
+        <div class="sketch-item">
+            <img src="Pal3.jpg" alt="Sketch 3" onclick="openModal(this.src)">
+            <span class="file-tag">IMG_003.raw</span>
+        </div>
+            <div class="sketch-item">
+            <img src="Pal4.jpg" alt="Sketch 3" onclick="openModal(this.src)">
+            <span class="file-tag">IMG_003.raw</span>
+        </div>
+            <div class="sketch-item">
+            <img src="Pal5.jpg" alt="Sketch 3" onclick="openModal(this.src)">
+            <span class="file-tag">IMG_003.raw</span>
+        </div>
+    </div>
+</div>
+                            
+                        </div>
+                    </section>
+                </div>
+
+                <footer class="terminal-footer">
+                    <p>> [LOG]: Sujeto no responde al arquetipo de "rockstar". Enfoque actual: composición musical.</p>
+                </footer>
+            </main>
+        </div>
+    </div>
+
+<div id="image-modal" class="modal-overlay" onclick="closeModal()">
+    <div class="modal-window" onclick="event.stopPropagation()">
+        <header class="window-header">
+            <span id="modal-filename">VIEWER.exe</span>
+            <div class="window-controls" onclick="closeModal()"> X </div>
+        </header>
+        <div class="modal-body">
+            <img id="full-image" src="" alt="Full Resolution">
+        </div>
+        <footer class="modal-footer">
+            <button class="retro-btn" onclick="closeModal()">CERRAR_ARCHIVO</button>
+        </footer>
+    </div>
+</div>
+
+<script>
+    function openModal(imageSrc) {
+        const modal = document.getElementById('image-modal');
+        const fullImg = document.getElementById('full-image');
+        const filename = document.getElementById('modal-filename');
+
+        // Extraer el nombre del archivo para que se vea más pro
+        const name = imageSrc.split('/').pop();
+        
+        fullImg.src = imageSrc;
+        filename.innerText = "VIEWING: " + name;
+        modal.style.display = "flex";
+    }
+
+    function closeModal() {
+        document.getElementById('image-modal').style.display = "none";
+    }
+</script>
+
+</body>
+</html>

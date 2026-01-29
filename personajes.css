@@ -1,0 +1,99 @@
+/* --- ESTILO BASE --- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: #000000; /* Verde Win95 */
+    font-family: 'Pixelify Sans', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 15px;
+}
+
+/* --- VENTANA --- */
+.window-wrapper {
+    background: #c0c0c0;
+    border-top: 2px solid #dfdfdf;
+    border-left: 2px solid #dfdfdf;
+    border-right: 2px solid #808080;
+    border-bottom: 2px solid #808080;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 4px 4px 0px #000;
+}
+
+.window-header {
+    background: linear-gradient(90deg, #000080, #1084d0);
+    color: white;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+}
+
+.menu-title {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: #000;
+}
+
+/* --- CUADRÍCULA DE SELECCIÓN --- */
+.character-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 20px;
+    padding: 10px;
+}
+
+.char-card {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border: 2px solid transparent;
+}
+
+.char-card:hover {
+    background: #000080;
+    border: 2px dotted #fff;
+}
+
+.portrait-box {
+    width: 100px;
+    height: 100px;
+    background: #000;
+    border: 3px inset #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.portrait-box img {
+    max-width: 100%;
+    image-rendering: pixelated;
+}
+
+.char-label {
+    margin-top: 8px;
+    font-size: 0.8rem;
+    color: #000;
+    font-weight: bold;
+}
+
+.char-card:hover .char-label { color: #fff; }
+
+
+.locked { opacity: 0.5; filter: grayscale(1); cursor: not-allowed; }
+.lock-icon { color: #fff; font-size: 2rem; }
+
+.status-bar {
+    margin-top: 20px;
+    background: #c0c0c0;
+    border: 2px inset #fff;
+    padding: 5px;
+    font-size: 0.7rem;
+}

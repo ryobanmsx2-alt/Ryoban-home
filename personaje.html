@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RYOBAN OS - Palmer File</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="perfil.css">
+</head>
+<body>
+
+    <div class="desktop-emulator">
+        <div class="window-wrapper">
+            <header class="window-header">
+                <span>FILE_VIEWER: /CHARACTERS/PALMER_09.dat</span>
+                <div class="window-controls"> _ [] X </div>
+            </header>
+
+            <main class="window-body">
+                <div class="profile-layout">
+                    
+                    <section class="side-panel">
+                        <div class="portrait-frame">
+                            <img src="p1.jpg" alt="Palmer Portrait" class="pixel-art">
+                        </div>
+                        <div class="technical-stats">
+                            <p><strong>ESPECIE:</strong> Diurna</p>
+                            <p><strong>DIETA:</strong> Carnívoro</p>
+                            <p><strong>ESTADO:</strong> Activo</p>
+                        </div>
+                    </section>
+
+                    <section class="info-panel">
+                        <div class="header-main">
+                            <h1 class="pixel-title">SUBJECT: PALMER</h1>
+                            <div class="badge-origin">ORIGEN: ASCEND</div>
+                        </div>
+
+                        <hr class="divider">
+
+                        <div class="data-group">
+                            <h3 class="section-label">[ REGISTRO HISTÓRICO ]</h3>
+                            <p class="data-text">
+                                Palmer fue creado por la organización ASCEND, donde permaneció bajo observación durante nueve años. 
+                                Es un sujeto relajado pero siempre alerta; su naturaleza desconfiada es una respuesta directa a su entorno.
+                            </p>
+                        </div>
+
+                        <div class="data-group">
+                            <h3 class="section-label">[ CAPACIDADES ANALÍTICAS ]</h3>
+                            <ul class="data-list">
+                                <li><strong>Oído Hiper-sensible:</strong> Capacidad de escuchar latidos cardíacos para detectar engaños.</li>
+                                <li><strong>Aptitud Musical:</strong> Guitarrista y aspirante a compositor de géneros experimentales.</li>
+                            </ul>
+                            
+                            <div class="data-group">
+    <h3 class="section-label">[ PLAYLIST ]</h3>
+    <div class="retro-media-player">
+        <div class="track-info">
+            <span id="current-track-name">
+            CANCIONES FAVORITAS</span>
+        </div>
+        <ul class="playlist">
+            <li onclick="playSong('song1.mp3', 'EXPERIMENTAL_DEMO_01.mp3')">01. Experimental Demo - Palmer</li>
+            <li onclick="playSong('song2.mp3', 'GUITAR_SOLO_A.mp3')">02. Guitar Solo (Unfinished) - Palmer</li>
+            <li onclick="playSong('song3.mp3', 'GENRE_FUSION_TEST.mp3')">03. Genre Fusion Test - Palmer</li>
+        </ul>
+        <audio id="palmer-audio" src=""></audio>
+        <div class="player-controls">
+            <button class="retro-btn" onclick="toggleAudio()">▶ PLAY / II PAUSE</button>
+        </div>
+    </div>
+</div>
+
+                            
+                        </div>
+                    </section>
+                </div>
+
+                <footer class="terminal-footer">
+                    <p>> [LOG]: Sujeto no responde al arquetipo de "rockstar". Enfoque actual: composición musical.</p>
+                </footer>
+            </main>
+        </div>
+    </div>
+
+</body>
+</html>
