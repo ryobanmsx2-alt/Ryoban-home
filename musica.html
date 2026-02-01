@@ -3,171 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ryoban - Music</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <title>Ryoban Personal Player</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&family=Space+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="musica.css">
 </head>
 <body>
 
-    <div class="player-wrapper">
+    <div class="ryoban-player-window">
         <header class="window-header">
-            <span>RYOBAN_PLAYER.exe</span>
-            <div class="controls">
-                <a href="index.html" style="color: white; text-decoration: none;">[ VOLVER ]</a>
-                <span> _ [] X </span>
-            </div>
+            <span>DREAM MACHINE.exe</span>
+            <span>_ [] X</span>
         </header>
 
-        <main class="player-body">
-            <section class="visualizer-section">
-                <canvas id="visualizer"></canvas>
-                <div class="v-overlay"></div> 
-            </section>
-
-<section class="info-section">
-    <div id="now-playing-ryoban">SELECCIONE UN TRACK</div> <div class="progress-container">
-        <span id="current-time-ryoban" class="time-text">0:00</span>
-        <input type="range" id="seek-bar-ryoban" value="0" min="0" step="1">
-        <span id="total-time-ryoban" class="time-text">0:00</span>
-    </div>
-</section>
-            <section class="playlist-section">
-                <ul class="tracklist" id="myTracklist">
-                <li data-src="cancion2.mp3">01. Furries in a blender - Im Alive</li>
-                <li data-src="Cancion1.mp3">02. DOB - ブルーな一日</li>
-                <li data-src="Cancion3.mp3">03. Darius - Please Drive</li>
-                <li data-src="Cancion4.mp3">04. Darius + Rotten - Why Wolves</li>
-                <li data-src="Cancion5.mp3">05. Stereolab - Orgiastic</li>
-                <li data-src="Cancion6.mp3">06. NEKO - X + Y (2006 Mix)</li>
-                <li data-src="Cancion7.mp3">07. The Queenstons - Going Back</li>
-                </ul>
-            </section>
-
-            <footer class="player-footer">
-                <button id="play-pause-btn" class="retro-btn">▶ PLAY</button>
-                <div class="volume-container">
-                    <span>VOL:</span>
-                    <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.5">
-                </div>
-            </footer>
-        </main>
-    </div>
-
-    <div class="music-rack">
-    
-    <div class="player-wrapper ryoban-personal">
-        <header class="window-header">
-            <span>RYOBAN_PLAYER.exe</span>
-            <div class="controls"> _ [] X </div>
-        </header>
-        <main class="player-body">
-<div class="player-box ryoban-theme">
-    <h3 class="section-label">[ MIS_TRACKS / DREAM MACHINE ]</h3>
-    <div class="retro-media-player">
-        
-        <div class="visualizer-container">
-            <div class="album-art-box">
-                <img src="DXNXMT.png" alt="Ryoban OS Logo">
+        <div class="screen-container">
+            <img src="DXNXMT.png" alt="Album Art" class="album-art" id="rp-art">
+            <div class="track-overlay">
+                <span id="rp-track-name">_</span>
             </div>
-            <canvas id="visualizer-ryoban"></canvas>
         </div>
 
-        <div class="track-info"><span id="ryoban-track-name">SISTEMA_LISTO</span></div>
+        <div class="controls-area">
+            
+            <div class="progress-wrapper">
+                <span id="rp-current">0:00</span>
+                <input type="range" id="rp-seekbar" value="0" min="0" step="1">
+                <span id="rp-total">0:00</span>
+            </div>
 
-<section class="info-section">
-    <div id="now-playing">SELECCIONE UN TRACK</div>
-    
-    <div class="progress-container">
-        <span id="time-lore" class="time-text">00:00</span>
-        <input type="range" id="seek-lore" value="0" min="0" step="1">
-        <span id="total-lore" class="time-text">00:00</span>
+            <div class="buttons-row">
+                <button class="retro-btn" onclick="prevSong()">|&lt;</button>
+                <button class="retro-btn" id="rp-play-btn" onclick="togglePlay()">▶ PLAY</button>
+                <button class="retro-btn" onclick="nextSong()">&gt;|</button>
+            </div>
+
+            <ul class="playlist" id="rp-playlist">
+                </ul>
+
+        </div>
     </div>
-</section>
-        
-        <ul class="tracklist">
-            <li onclick="playRyoban('Access_1982.mp3', 'MY_BEAT_01')">01. Access_1982</li>
-            <li onclick="playRyoban('beat2.mp3', 'OLD_SCHOOL')">02. Old School Vibe</li>
-        </ul>
-        
-        <audio id="audio-ryoban"></audio>
-        <button class="retro-btn" onclick="toggleRyoban()">▶ PLAY / II PAUSE</button>
-    </div>
-</div>
-    <audio id="audio-player" crossorigin="anonymous"></audio>
 
-<script>
-// --- CONFIGURACIÓN DE ELEMENTOS ---
-const audioRyoban = document.getElementById('audio-ryoban');
-const seekBarRyoban = document.getElementById('seek-bar-ryoban');
-const timeCurrRyoban = document.getElementById('current-time-ryoban');
-const timeTotalRyoban = document.getElementById('total-time-ryoban');
+    <audio id="rp-audio"></audio>
 
-const audioLore = document.getElementById('audio-lore');
-const seekBarLore = document.getElementById('seek-bar-lore');
-const timeCurrLore = document.getElementById('current-time-lore');
-const timeTotalLore = document.getElementById('total-time-lore');
+    <script>
+        // --- 1. TU LISTA DE MÚSICA (Edita esto) ---
+        const myTracks = [
+            { title: "Access_1982", file: "HIPERZONE_SONGS/Access_1982.mp3" },
+            { title: "Bienvenido a HIPERZONE", file: "HIPERZONE_SONGS/bienvenido a HYPERZONE.mp3" },
+            { title: "Dream Machine", file: "cancion3.mp3" }
+        ];
 
-// --- FUNCIONES DE CONTROL (LO QUE FALTABA) ---
-function playLore(src, name) {
-    audioLore.src = src;
-    // Si tienes un elemento para mostrar el nombre, úsalo aquí. Ej:
-    document.getElementById('now-playing').innerText = "PLAYING: " + name;
-    audioLore.play();
-    if(audioRyoban) audioRyoban.pause(); // Pausa el otro
-}
+        let currentIndex = 0;
+        const audio = document.getElementById('rp-audio');
+        const playBtn = document.getElementById('rp-play-btn');
+        const seekbar = document.getElementById('rp-seekbar');
+        const currentText = document.getElementById('rp-current');
+        const totalText = document.getElementById('rp-total');
+        const trackName = document.getElementById('rp-track-name');
+        const playlistEl = document.getElementById('rp-playlist');
 
-function toggleLore() {
-    if (audioLore.paused) audioLore.play();
-    else audioLore.pause();
-}
+        // --- 2. INICIALIZAR ---
+        // Crear la lista visualmente
+        function renderPlaylist() {
+            playlistEl.innerHTML = "";
+            myTracks.forEach((track, index) => {
+                const li = document.createElement('li');
+                li.innerText = `${index + 1}. ${track.title}`;
+                li.onclick = () => loadTrack(index);
+                if (index === currentIndex) li.classList.add('active');
+                playlistEl.appendChild(li);
+            });
+        }
 
-function playRyoban(src, name) {
-    audioRyoban.src = src;
-    document.getElementById('ryoban-track-name').innerText = "TRACK: " + name;
-    audioRyoban.play();
-    if(audioLore) audioLore.pause(); // Pausa el otro
-}
+        function loadTrack(index) {
+            currentIndex = index;
+            audio.src = myTracks[index].file;
+            trackName.innerText = myTracks[index].title;
+            renderPlaylist(); // Actualiza el color amarillo de la lista
+            playAudio();
+        }
 
-function toggleRyoban() {
-    if (audioRyoban.paused) audioRyoban.play();
-    else audioRyoban.pause();
-}
+        // --- 3. CONTROLES ---
+        function togglePlay() {
+            audio.paused ? playAudio() : pauseAudio();
+        }
 
-// --- ACTUALIZACIÓN DE BARRAS ---
-function updateInterface(audio, seekBar, currText, totalText) {
-    if (audio.duration && !isNaN(audio.duration)) {
-        const progress = (audio.currentTime / audio.duration) * 100;
-        seekBar.value = progress;
-        currText.innerText = formatTime(audio.currentTime);
-        totalText.innerText = formatTime(audio.duration);
-    }
-}
+        function playAudio() {
+            audio.play();
+            playBtn.innerText = "|| PAUSE";
+        }
 
-// Event Listeners - Ryoban
-if (audioRyoban) {
-    audioRyoban.addEventListener('timeupdate', () => updateInterface(audioRyoban, seekBarRyoban, timeCurrRyoban, timeTotalRyoban));
-    seekBarRyoban.addEventListener('input', () => {
-        audioRyoban.currentTime = audioRyoban.duration * (seekBarRyoban.value / 100);
-    });
-}
+        function pauseAudio() {
+            audio.pause();
+            playBtn.innerText = "▶ PLAY";
+        }
 
-// Event Listeners - Lore
-if (audioLore) {
-    audioLore.addEventListener('timeupdate', () => updateInterface(audioLore, seekBarLore, timeCurrLore, timeTotalLore));
-    seekBarLore.addEventListener('input', () => {
-        audioLore.currentTime = audioLore.duration * (seekBarLore.value / 100);
-    });
-}
+        function nextSong() {
+            currentIndex = (currentIndex + 1) % myTracks.length;
+            loadTrack(currentIndex);
+        }
 
-function formatTime(seconds) {
-    if (isNaN(seconds)) return "0:00";
-    const min = Math.floor(seconds / 60);
-    const sec = Math.floor(seconds % 60);
-    return `${min}:${sec < 10 ? '0' + sec : sec}`;
-}
-</script>
-</script>
+        function prevSong() {
+            currentIndex = (currentIndex - 1 + myTracks.length) % myTracks.length;
+            loadTrack(currentIndex);
+        }
 
-<script></script>
+        // --- 4. BARRA DE PROGRESO ---
+        audio.addEventListener('timeupdate', () => {
+            if (audio.duration) {
+                seekbar.value = (audio.currentTime / audio.duration) * 100;
+                currentText.innerText = formatTime(audio.currentTime);
+                totalText.innerText = formatTime(audio.duration);
+            }
+        });
+
+        seekbar.addEventListener('input', () => {
+            audio.currentTime = (seekbar.value / 100) * audio.duration;
+        });
+
+        audio.addEventListener('ended', nextSong);
+
+        function formatTime(s) {
+            if(isNaN(s)) return "0:00";
+            const m = Math.floor(s / 60);
+            const sec = Math.floor(s % 60);
+            return `${m}:${sec < 10 ? '0'+sec : sec}`;
+        }
+
+        // Cargar la primera sin reproducir
+        renderPlaylist();
+    </script>
 </body>
 </html>
