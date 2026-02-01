@@ -52,114 +52,201 @@
         </main>
     </div>
 
+    <div class="music-rack">
+    
+    <div class="player-wrapper ryoban-personal">
+        <header class="window-header">
+            <span>RYOBAN_PLAYER.exe</span>
+            <div class="controls"> _ [] X </div>
+        </header>
+        <main class="player-body">
+<div class="player-box ryoban-theme">
+    <h3 class="section-label">[ MIS_TRACKS / DREAM MACHINE ]</h3>
+    <div class="retro-media-player">
+        
+        <div class="visualizer-container">
+            <div class="album-art-box">
+                <img src="DXNXMT.png" alt="Ryoban OS Logo">
+            </div>
+            <canvas id="visualizer-ryoban"></canvas>
+        </div>
+
+        <div class="track-info"><span id="ryoban-track-name">SISTEMA_LISTO</span></div>
+        
+        <ul class="tracklist">
+            <li onclick="playRyoban('Access_1982.mp3', 'MY_BEAT_01')">01. Access_1982</li>
+            <li onclick="playRyoban('beat2.mp3', 'OLD_SCHOOL')">02. Old School Vibe</li>
+        </ul>
+        
+        <audio id="audio-ryoban"></audio>
+        <button class="retro-btn" onclick="toggleRyoban()">▶ PLAY / II PAUSE</button>
+    </div>
+</div>
     <audio id="audio-player" crossorigin="anonymous"></audio>
 
-    <script>
-        const audioPlayer = document.getElementById('audio-player');
-        const canvas = document.getElementById('visualizer');
-        const canvasCtx = canvas.getContext('2d');
-        const tracklist = document.querySelectorAll('.tracklist li');
-        const playBtn = document.getElementById('play-pause-btn');
-        const timeDisplay = document.getElementById('time-display');
-        const seekBar = document.getElementById('seek-bar');
-        const nowPlayingText = document.getElementById('now-playing');
-        const volumeSlider = document.getElementById('volume-slider');
+<script>
+    /* --- REFERENCIAS A LOS ELEMENTOS DEL HTML --- */
+    const audioLore = document.getElementById('audio-player'); // El de Adeline (Verde)
+    const audioRyoban = document.getElementById('audio-ryoban'); // El tuyo (Rosa)
+    
+    const playBtnLore = document.getElementById('play-pause-btn');
+    const playBtnRyoban = document.querySelector('.ryoban-theme .retro-btn');
 
-        let audioCtx, analyser, source;
+    let audioCtx;
+    let analyserRyoban, srcRyoban;
+    let analyserLore, srcLore;
 
-        function initAudio() {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                analyser = audioCtx.createAnalyser();
-                source = audioCtx.createMediaElementSource(audioPlayer);
-                
-                // Conexión: Archivo -> Analizador -> Altavoces
-                source.connect(analyser);
-                analyser.connect(audioCtx.destination);
-                
-                analyser.fftSize = 256;
-                draw();
-            }
+    /* --- INICIAR EL MOTOR DE AUDIO (Solo se hace una vez) --- */
+    function initContext() {
+        if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+    }
+
+    /* --- FUNCIÓN 1: REPRODUCTOR RYOBAN (ROSA) --- */
+    function playRyoban(src, name) {
+        initContext(); // Encender el sistema de audio
+
+        // 1. Apagar el otro reproductor si está sonando
+        if (!audioLore.paused) {
+            audioLore.pause();
+            playBtnLore.innerText = "▶ PLAY";
+        }
+
+        // 2. Cargar tu canción y actualizar texto
+        audioRyoban.src = src;
+        document.getElementById('ryoban-track-name').innerText = "TRACK: " + name;
+
+        // 3. Conectar el Visualizador (Solo si no se ha hecho antes)
+        if (!srcRyoban) {
+            const canvas = document.getElementById('visualizer-ryoban');
+            const ctx = canvas.getContext('2d');
             
-            // "Despertar" el audio si el navegador lo bloqueó
-            if (audioCtx.state === 'suspended') {
-                audioCtx.resume();
+            srcRyoban = audioCtx.createMediaElementSource(audioRyoban);
+            analyserRyoban = audioCtx.createAnalyser();
+            srcRyoban.connect(analyserRyoban);
+            analyserRyoban.connect(audioCtx.destination);
+            analyserRyoban.fftSize = 256;
+
+            // Función de dibujo del osciloscopio rosa
+            function drawRyoban() {
+                requestAnimationFrame(drawRyoban);
+                const bufferLength = analyserRyoban.frequencyBinCount;
+                const dataArray = new Uint8Array(bufferLength);
+                analyserRyoban.getByteTimeDomainData(dataArray);
+
+                ctx.clearRect(0, 0, canvas.width, canvas.height); // Fondo transparente
+                ctx.lineWidth = 3;
+                ctx.strokeStyle = '#ff00ff'; // Color Rosa Neón
+                ctx.beginPath();
+
+                let sliceWidth = canvas.width * 1.0 / bufferLength;
+                let x = 0;
+                for (let i = 0; i < bufferLength; i++) {
+                    let v = dataArray[i] / 128.0;
+                    let y = v * canvas.height / 2;
+                    if (i === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                    x += sliceWidth;
+                }
+                ctx.lineTo(canvas.width, canvas.height / 2);
+                ctx.stroke();
             }
+            drawRyoban(); // Comenzar animación
         }
 
-        function draw() {
-            const bufferLength = analyser.frequencyBinCount;
-            const dataArray = new Uint8Array(bufferLength);
+        // 4. Reproducir
+        audioRyoban.play()
+            .then(() => { playBtnRyoban.innerText = "II PAUSE"; })
+            .catch(e => console.log("Error al reproducir:", e));
+    }
+
+    function toggleRyoban() {
+        if (!audioRyoban.src) return; 
+        initContext();
+
+        if (audioRyoban.paused) {
+            audioRyoban.play();
+            playBtnRyoban.innerText = "II PAUSE";
+            audioLore.pause(); // Silenciar al vecino
+            playBtnLore.innerText = "▶ PLAY";
+        } else {
+            audioRyoban.pause();
+            playBtnRyoban.innerText = "▶ PLAY";
+        }
+    }
+
+    /* --- FUNCIÓN 2: REPRODUCTOR LORE (VERDE) --- */
+    // Configuración para que funcione la lista de canciones vieja
+    document.querySelectorAll('#myTracklist li').forEach(track => {
+        track.addEventListener('click', () => {
+            initContext();
             
-            requestAnimationFrame(draw);
-            analyser.getByteTimeDomainData(dataArray);
+            // Pausar tu reproductor personal
+            audioRyoban.pause();
+            playBtnRyoban.innerText = "▶ PLAY";
 
-            canvasCtx.fillStyle = '#000';
-            canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
-            canvasCtx.lineWidth = 2;
-            canvasCtx.strokeStyle = '#00ff00'; 
-            canvasCtx.beginPath();
+            // Lógica original del visualizador verde
+            if (!srcLore) {
+                const canvas = document.getElementById('visualizer');
+                const ctx = canvas.getContext('2d');
+                srcLore = audioCtx.createMediaElementSource(audioLore);
+                analyserLore = audioCtx.createAnalyser();
+                srcLore.connect(analyserLore);
+                analyserLore.connect(audioCtx.destination);
+                analyserLore.fftSize = 256;
 
-            let sliceWidth = canvas.width * 1.0 / bufferLength;
-            let x = 0;
+                function drawLore() {
+                    requestAnimationFrame(drawLore);
+                    const bufferLength = analyserLore.frequencyBinCount;
+                    const dataArray = new Uint8Array(bufferLength);
+                    analyserLore.getByteTimeDomainData(dataArray);
 
-            for (let i = 0; i < bufferLength; i++) {
-                let v = dataArray[i] / 128.0;
-                let y = v * canvas.height / 2;
-                if (i === 0) canvasCtx.moveTo(x, y);
-                else canvasCtx.lineTo(x, y);
-                x += sliceWidth;
+                    ctx.fillStyle = '#000';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx.lineWidth = 2;
+                    ctx.strokeStyle = '#00ff00'; 
+                    ctx.beginPath();
+                    let sliceWidth = canvas.width * 1.0 / bufferLength;
+                    let x = 0;
+                    for(let i=0; i<bufferLength; i++) {
+                        let v = dataArray[i]/128.0; let y = v*canvas.height/2;
+                        if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+                        x+=sliceWidth;
+                    }
+                    ctx.lineTo(canvas.width, canvas.height/2);
+                    ctx.stroke();
+                }
+                drawLore();
             }
-            canvasCtx.lineTo(canvas.width, canvas.height / 2);
-            canvasCtx.stroke();
+
+            // Reproducir canción seleccionada
+            const src = track.getAttribute('data-src');
+            audioLore.src = src;
+            document.getElementById('now-playing').textContent = track.textContent;
+            audioLore.play();
+            playBtnLore.innerText = "II PAUSE";
+        });
+    });
+
+    // Botón Play/Pause del Lore
+    playBtnLore.addEventListener('click', () => {
+        initContext();
+        if (audioLore.paused) {
+            audioLore.play();
+            playBtnLore.innerText = "II PAUSE";
+            audioRyoban.pause();
+            playBtnRyoban.innerText = "▶ PLAY";
+        } else {
+            audioLore.pause();
+            playBtnLore.innerText = "▶ PLAY";
         }
+    });
+</script>
 
-        tracklist.forEach(track => {
-            track.addEventListener('click', () => {
-                initAudio();
-                tracklist.forEach(t => t.classList.remove('active'));
-                track.classList.add('active');
-                
-                const src = track.getAttribute('data-src');
-                audioPlayer.src = src;
-                nowPlayingText.textContent = track.textContent;
-                
-                audioPlayer.play();
-                playBtn.textContent = "II PAUSE";
-            });
-        });
-
-        playBtn.addEventListener('click', () => {
-            if (!audioPlayer.src) return;
-            initAudio();
-            if (audioPlayer.paused) {
-                audioPlayer.play();
-                playBtn.textContent = "II PAUSE";
-            } else {
-                audioPlayer.pause();
-                playBtn.textContent = "▶ PLAY";
-            }
-        });
-
-        audioPlayer.addEventListener('timeupdate', () => {
-            if (!isNaN(audioPlayer.duration)) {
-                seekBar.max = audioPlayer.duration;
-                seekBar.value = audioPlayer.currentTime;
-                timeDisplay.textContent = formatTime(audioPlayer.currentTime) + " / " + formatTime(audioPlayer.duration);
-            }
-        });
-
-        seekBar.addEventListener('input', () => audioPlayer.currentTime = seekBar.value);
-        
-        volumeSlider.addEventListener('input', () => {
-            audioPlayer.volume = volumeSlider.value;
-        });
-
-        function formatTime(s) {
-            let min = Math.floor(s / 60);
-            let sec = Math.floor(s % 60);
-            return (min < 10 ? '0' : '') + min + ":" + (sec < 10 ? '0' : '') + sec;
-        }
-    </script>
+</script>
 </body>
 </html>

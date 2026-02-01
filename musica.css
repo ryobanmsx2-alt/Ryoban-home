@@ -18,6 +18,7 @@ body {
     box-shadow: 10px 10px 0 rgba(0,0,0,0.2);
 }
 
+
 .window-header {
     background: linear-gradient(90deg, #000080, #1084d0);
     color: white;
@@ -80,3 +81,66 @@ body {
     cursor: pointer;
 }
 .retro-btn:active { border-color: #808080 #fff #fff #808080; }
+
+/* --- CONTENEDOR FLEXIBLE --- */
+.music-rack {
+    display: flex;
+    flex-wrap: wrap; /* En celular se pondrán uno abajo del otro */
+    gap: 20px;
+    justify-content: center;
+    padding: 10px;
+}
+
+.player-wrapper {
+    flex: 1;
+    min-width: 320px; /* Tamaño mínimo para que no se deformen en móvil */
+    max-width: 500px;
+    height: fit-content; /* Se ajusta al contenido */
+}
+
+/* El visualizador ya tiene tu estilo de líneas CRT */
+#visualizer {
+    width: 100%;
+    height: 100%;
+}
+
+/* --- CARÁTULA FULL SCREEN (SUPERPOSICIÓN) --- */
+.ryoban-theme .visualizer-container {
+    position: relative; /* Necesario para que lo de adentro se acomode */
+    height: 300px;      /* Altura fija para que se vea grande */
+    padding: 0;         /* Quitamos padding para aprovechar cada píxel */
+    border: 2px solid #ff00ff;
+    overflow: hidden;   /* Corta lo que sobre */
+    background: #000;
+}
+
+.ryoban-theme .album-art-box {
+    position: absolute; /* Lo sacamos del flujo para que sea fondo */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Nivel 1: Al fondo */
+    border: none;
+}
+
+.ryoban-theme .album-art-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Esto es CLAVE: llena el espacio sin deformar la imagen */
+    object-position: center;
+    opacity: 0.7;
+}
+
+#visualizer-ryoban {
+    position: absolute; /* Lo ponemos flotando encima */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2; /* Nivel 2: Al frente */
+    /* TRUCO PRO: Hace que el negro del visualizador se vuelva transparente */
+    mix-blend-mode: screen; 
+    pointer-events: none; /* Para que puedas dar click a la imagen si quisieras */
+}
+
