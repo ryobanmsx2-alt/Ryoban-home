@@ -95,41 +95,57 @@
     <audio id="audio-player" crossorigin="anonymous"></audio>
 
 <script>
-
+// --- CONFIGURACIÓN DE AUDIO RYOBAN ---
 const audioRyoban = document.getElementById('audio-ryoban');
 const seekBarRyoban = document.getElementById('seek-bar-ryoban');
-const currentTimeText = document.getElementById('current-time-ryoban');
-const totalTimeText = document.getElementById('total-time-ryoban');
+const timeCurrRyoban = document.getElementById('current-time-ryoban');
+const timeTotalRyoban = document.getElementById('total-time-ryoban');
 
-// 1. Actualizar la barra mientras suena la música
-audioRyoban.addEventListener('timeupdate', () => {
-    if (audioRyoban.duration) {
-        // Calcula el porcentaje de progreso
-        const progress = (audioRyoban.currentTime / audioRyoban.duration) * 100;
-        seekBarRyoban.value = progress;
-        
-        // Actualiza el texto del tiempo actual
-        currentTimeText.innerText = formatTime(audioRyoban.currentTime);
-        totalTimeText.innerText = formatTime(audioRyoban.duration);
+// --- CONFIGURACIÓN DE AUDIO LORE ---
+const audioLore = document.getElementById('audio-lore');
+const seekBarLore = document.getElementById('seek-bar-lore');
+const timeCurrLore = document.getElementById('current-time-lore');
+const timeTotalLore = document.getElementById('total-time-lore');
+
+// 1. FUNCIÓN MAESTRA DE ACTUALIZACIÓN (Sincroniza barra y texto)
+function updateInterface(audio, seekBar, currText, totalText) {
+    if (audio.duration) {
+        const progress = (audio.currentTime / audio.duration) * 100;
+        seekBar.value = progress;
+        currText.innerText = formatTime(audio.currentTime);
+        totalText.innerText = formatTime(audio.duration);
     }
+}
+
+// 2. EVENTOS PARA RYOBAN BEATS
+audioRyoban.addEventListener('timeupdate', () => {
+    updateInterface(audioRyoban, seekBarRyoban, timeCurrRyoban, timeTotalRyoban);
 });
 
-// 2. Permitir que tú arrastres la barra para adelantar/atrasar
 seekBarRyoban.addEventListener('input', () => {
     const seekTo = audioRyoban.duration * (seekBarRyoban.value / 100);
     audioRyoban.currentTime = seekTo;
 });
 
-// Función auxiliar para poner el tiempo bonito (0:00)
+// 3. EVENTOS PARA LORE
+audioLore.addEventListener('timeupdate', () => {
+    updateInterface(audioLore, seekBarLore, timeCurrLore, timeTotalLore);
+});
+
+seekBarLore.addEventListener('input', () => {
+    const seekTo = audioLore.duration * (seekBarLore.value / 100);
+    audioLore.currentTime = seekTo;
+});
+
+// 4. FORMATEADOR DE TIEMPO (De segundos a 0:00)
 function formatTime(seconds) {
+    if (isNaN(seconds)) return "0:00";
     const min = Math.floor(seconds / 60);
     const sec = Math.floor(seconds % 60);
     return `${min}:${sec < 10 ? '0' + sec : sec}`;
 }
-
-    
 </script>
 
-</script>
+<script></script>
 </body>
 </html>
