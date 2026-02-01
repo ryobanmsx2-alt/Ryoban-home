@@ -24,12 +24,13 @@
                 <div class="v-overlay"></div> 
             </section>
 
-            <section class="info-section">
-                <div id="now-playing">SELECCIONE UN TRACK</div>
-                <input type="range" id="seek-bar" value="0" min="0" step="1">
-                <div id="time-display">00:00 / 00:00</div>
-            </section>
-
+<section class="info-section">
+    <div id="now-playing-ryoban">SELECCIONE UN TRACK</div> <div class="progress-container">
+        <span id="current-time-ryoban" class="time-text">0:00</span>
+        <input type="range" id="seek-bar-ryoban" value="0" min="0" step="1">
+        <span id="total-time-ryoban" class="time-text">0:00</span>
+    </div>
+</section>
             <section class="playlist-section">
                 <ul class="tracklist" id="myTracklist">
                 <li data-src="cancion2.mp3">01. Furries in a blender - Im Alive</li>
@@ -95,21 +96,46 @@
     <audio id="audio-player" crossorigin="anonymous"></audio>
 
 <script>
-// --- CONFIGURACIÓN DE AUDIO RYOBAN ---
+// --- CONFIGURACIÓN DE ELEMENTOS ---
 const audioRyoban = document.getElementById('audio-ryoban');
 const seekBarRyoban = document.getElementById('seek-bar-ryoban');
 const timeCurrRyoban = document.getElementById('current-time-ryoban');
 const timeTotalRyoban = document.getElementById('total-time-ryoban');
 
-// --- CONFIGURACIÓN DE AUDIO LORE ---
 const audioLore = document.getElementById('audio-lore');
 const seekBarLore = document.getElementById('seek-bar-lore');
 const timeCurrLore = document.getElementById('current-time-lore');
 const timeTotalLore = document.getElementById('total-time-lore');
 
-// 1. FUNCIÓN MAESTRA DE ACTUALIZACIÓN (Sincroniza barra y texto)
+// --- FUNCIONES DE CONTROL (LO QUE FALTABA) ---
+function playLore(src, name) {
+    audioLore.src = src;
+    // Si tienes un elemento para mostrar el nombre, úsalo aquí. Ej:
+    document.getElementById('now-playing').innerText = "PLAYING: " + name;
+    audioLore.play();
+    if(audioRyoban) audioRyoban.pause(); // Pausa el otro
+}
+
+function toggleLore() {
+    if (audioLore.paused) audioLore.play();
+    else audioLore.pause();
+}
+
+function playRyoban(src, name) {
+    audioRyoban.src = src;
+    document.getElementById('ryoban-track-name').innerText = "TRACK: " + name;
+    audioRyoban.play();
+    if(audioLore) audioLore.pause(); // Pausa el otro
+}
+
+function toggleRyoban() {
+    if (audioRyoban.paused) audioRyoban.play();
+    else audioRyoban.pause();
+}
+
+// --- ACTUALIZACIÓN DE BARRAS ---
 function updateInterface(audio, seekBar, currText, totalText) {
-    if (audio.duration) {
+    if (audio.duration && !isNaN(audio.duration)) {
         const progress = (audio.currentTime / audio.duration) * 100;
         seekBar.value = progress;
         currText.innerText = formatTime(audio.currentTime);
@@ -117,33 +143,29 @@ function updateInterface(audio, seekBar, currText, totalText) {
     }
 }
 
-// 2. EVENTOS PARA RYOBAN BEATS
-audioRyoban.addEventListener('timeupdate', () => {
-    updateInterface(audioRyoban, seekBarRyoban, timeCurrRyoban, timeTotalRyoban);
-});
+// Event Listeners - Ryoban
+if (audioRyoban) {
+    audioRyoban.addEventListener('timeupdate', () => updateInterface(audioRyoban, seekBarRyoban, timeCurrRyoban, timeTotalRyoban));
+    seekBarRyoban.addEventListener('input', () => {
+        audioRyoban.currentTime = audioRyoban.duration * (seekBarRyoban.value / 100);
+    });
+}
 
-seekBarRyoban.addEventListener('input', () => {
-    const seekTo = audioRyoban.duration * (seekBarRyoban.value / 100);
-    audioRyoban.currentTime = seekTo;
-});
+// Event Listeners - Lore
+if (audioLore) {
+    audioLore.addEventListener('timeupdate', () => updateInterface(audioLore, seekBarLore, timeCurrLore, timeTotalLore));
+    seekBarLore.addEventListener('input', () => {
+        audioLore.currentTime = audioLore.duration * (seekBarLore.value / 100);
+    });
+}
 
-// 3. EVENTOS PARA LORE
-audioLore.addEventListener('timeupdate', () => {
-    updateInterface(audioLore, seekBarLore, timeCurrLore, timeTotalLore);
-});
-
-seekBarLore.addEventListener('input', () => {
-    const seekTo = audioLore.duration * (seekBarLore.value / 100);
-    audioLore.currentTime = seekTo;
-});
-
-// 4. FORMATEADOR DE TIEMPO (De segundos a 0:00)
 function formatTime(seconds) {
     if (isNaN(seconds)) return "0:00";
     const min = Math.floor(seconds / 60);
     const sec = Math.floor(seconds % 60);
     return `${min}:${sec < 10 ? '0' + sec : sec}`;
 }
+</script>
 </script>
 
 <script></script>
