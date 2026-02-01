@@ -95,166 +95,39 @@
     <audio id="audio-player" crossorigin="anonymous"></audio>
 
 <script>
-    /* --- REFERENCIAS A LOS ELEMENTOS DEL HTML --- */
-    const audioLore = document.getElementById('audio-player'); // El de Adeline (Verde)
-    const audioRyoban = document.getElementById('audio-ryoban'); // El tuyo (Rosa)
+
+const audioRyoban = document.getElementById('audio-ryoban');
+const seekBarRyoban = document.getElementById('seek-bar-ryoban');
+const currentTimeText = document.getElementById('current-time-ryoban');
+const totalTimeText = document.getElementById('total-time-ryoban');
+
+// 1. Actualizar la barra mientras suena la música
+audioRyoban.addEventListener('timeupdate', () => {
+    if (audioRyoban.duration) {
+        // Calcula el porcentaje de progreso
+        const progress = (audioRyoban.currentTime / audioRyoban.duration) * 100;
+        seekBarRyoban.value = progress;
+        
+        // Actualiza el texto del tiempo actual
+        currentTimeText.innerText = formatTime(audioRyoban.currentTime);
+        totalTimeText.innerText = formatTime(audioRyoban.duration);
+    }
+});
+
+// 2. Permitir que tú arrastres la barra para adelantar/atrasar
+seekBarRyoban.addEventListener('input', () => {
+    const seekTo = audioRyoban.duration * (seekBarRyoban.value / 100);
+    audioRyoban.currentTime = seekTo;
+});
+
+// Función auxiliar para poner el tiempo bonito (0:00)
+function formatTime(seconds) {
+    const min = Math.floor(seconds / 60);
+    const sec = Math.floor(seconds % 60);
+    return `${min}:${sec < 10 ? '0' + sec : sec}`;
+}
+
     
-    const playBtnLore = document.getElementById('play-pause-btn');
-    const playBtnRyoban = document.querySelector('.ryoban-theme .retro-btn');
-
-    let audioCtx;
-    let analyserRyoban, srcRyoban;
-    let analyserLore, srcLore;
-
-    /* --- INICIAR EL MOTOR DE AUDIO (Solo se hace una vez) --- */
-    function initContext() {
-        if (!audioCtx) {
-            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        }
-        if (audioCtx.state === 'suspended') {
-            audioCtx.resume();
-        }
-    }
-
-    /* --- FUNCIÓN 1: REPRODUCTOR RYOBAN (ROSA) --- */
-    function playRyoban(src, name) {
-        initContext(); // Encender el sistema de audio
-
-        // 1. Apagar el otro reproductor si está sonando
-        if (!audioLore.paused) {
-            audioLore.pause();
-            playBtnLore.innerText = "▶ PLAY";
-        }
-
-        // 2. Cargar tu canción y actualizar texto
-        audioRyoban.src = src;
-        document.getElementById('ryoban-track-name').innerText = "TRACK: " + name;
-
-        // 3. Conectar el Visualizador (Solo si no se ha hecho antes)
-        if (!srcRyoban) {
-            const canvas = document.getElementById('visualizer-ryoban');
-            const ctx = canvas.getContext('2d');
-            
-            srcRyoban = audioCtx.createMediaElementSource(audioRyoban);
-            analyserRyoban = audioCtx.createAnalyser();
-            srcRyoban.connect(analyserRyoban);
-            analyserRyoban.connect(audioCtx.destination);
-            analyserRyoban.fftSize = 256;
-
-            // Función de dibujo del osciloscopio rosa
-            function drawRyoban() {
-                requestAnimationFrame(drawRyoban);
-                const bufferLength = analyserRyoban.frequencyBinCount;
-                const dataArray = new Uint8Array(bufferLength);
-                analyserRyoban.getByteTimeDomainData(dataArray);
-
-                ctx.clearRect(0, 0, canvas.width, canvas.height); // Fondo transparente
-                ctx.lineWidth = 3;
-                ctx.strokeStyle = '#ff00ff'; // Color Rosa Neón
-                ctx.beginPath();
-
-                let sliceWidth = canvas.width * 1.0 / bufferLength;
-                let x = 0;
-                for (let i = 0; i < bufferLength; i++) {
-                    let v = dataArray[i] / 128.0;
-                    let y = v * canvas.height / 2;
-                    if (i === 0) ctx.moveTo(x, y);
-                    else ctx.lineTo(x, y);
-                    x += sliceWidth;
-                }
-                ctx.lineTo(canvas.width, canvas.height / 2);
-                ctx.stroke();
-            }
-            drawRyoban(); // Comenzar animación
-        }
-
-        // 4. Reproducir
-        audioRyoban.play()
-            .then(() => { playBtnRyoban.innerText = "II PAUSE"; })
-            .catch(e => console.log("Error al reproducir:", e));
-    }
-
-    function toggleRyoban() {
-        if (!audioRyoban.src) return; 
-        initContext();
-
-        if (audioRyoban.paused) {
-            audioRyoban.play();
-            playBtnRyoban.innerText = "II PAUSE";
-            audioLore.pause(); // Silenciar al vecino
-            playBtnLore.innerText = "▶ PLAY";
-        } else {
-            audioRyoban.pause();
-            playBtnRyoban.innerText = "▶ PLAY";
-        }
-    }
-
-    /* --- FUNCIÓN 2: REPRODUCTOR LORE (VERDE) --- */
-    // Configuración para que funcione la lista de canciones vieja
-    document.querySelectorAll('#myTracklist li').forEach(track => {
-        track.addEventListener('click', () => {
-            initContext();
-            
-            // Pausar tu reproductor personal
-            audioRyoban.pause();
-            playBtnRyoban.innerText = "▶ PLAY";
-
-            // Lógica original del visualizador verde
-            if (!srcLore) {
-                const canvas = document.getElementById('visualizer');
-                const ctx = canvas.getContext('2d');
-                srcLore = audioCtx.createMediaElementSource(audioLore);
-                analyserLore = audioCtx.createAnalyser();
-                srcLore.connect(analyserLore);
-                analyserLore.connect(audioCtx.destination);
-                analyserLore.fftSize = 256;
-
-                function drawLore() {
-                    requestAnimationFrame(drawLore);
-                    const bufferLength = analyserLore.frequencyBinCount;
-                    const dataArray = new Uint8Array(bufferLength);
-                    analyserLore.getByteTimeDomainData(dataArray);
-
-                    ctx.fillStyle = '#000';
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-                    ctx.lineWidth = 2;
-                    ctx.strokeStyle = '#00ff00'; 
-                    ctx.beginPath();
-                    let sliceWidth = canvas.width * 1.0 / bufferLength;
-                    let x = 0;
-                    for(let i=0; i<bufferLength; i++) {
-                        let v = dataArray[i]/128.0; let y = v*canvas.height/2;
-                        if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
-                        x+=sliceWidth;
-                    }
-                    ctx.lineTo(canvas.width, canvas.height/2);
-                    ctx.stroke();
-                }
-                drawLore();
-            }
-
-            // Reproducir canción seleccionada
-            const src = track.getAttribute('data-src');
-            audioLore.src = src;
-            document.getElementById('now-playing').textContent = track.textContent;
-            audioLore.play();
-            playBtnLore.innerText = "II PAUSE";
-        });
-    });
-
-    // Botón Play/Pause del Lore
-    playBtnLore.addEventListener('click', () => {
-        initContext();
-        if (audioLore.paused) {
-            audioLore.play();
-            playBtnLore.innerText = "II PAUSE";
-            audioRyoban.pause();
-            playBtnRyoban.innerText = "▶ PLAY";
-        } else {
-            audioLore.pause();
-            playBtnLore.innerText = "▶ PLAY";
-        }
-    });
 </script>
 
 </script>
