@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PARAXTERRA // Registro de Naturaleza</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="paraxterra.css">
+</head>
+<body>
+    <div id="particle-container"></div>
+
+    <div class="page-container">
+        
+        <section class="hero-section">
+            <div class="content">
+                <h1 class="nature-title">Paraxterra</h1>
+                <p>este sitio esta bajo construcción</p>
+                
+                <div class="hero-banner-wrapper">
+                    <img src="paraximg/wlcm.png" class="hero-banner" alt="Welcome to Paraxterra">
+                    <div class="banner-glint"></div>
+                </div>
+            </div>
+        </section>
+
+<section class="intro-lore-section">
+    <div class="intro-container">
+        <h2 class="section-subtitle">Introducción</h2>
+
+        <div class="intro-img-frame">
+            <img src="paraximg/prof.jpg" alt="Yatarka Landscape" class="static-intro-img">
+        </div>
+
+        <div class="intro-text-block">
+            <p>
+           Así comienza Paraxterra: un mundo donde el sol se detuvo hace milenios y la luna se desvaneció en ese mismo instante. La historia sigue a Adeline y Albert, quienes emprenden una travesía para hallar la luna y devolverla a su lugar en el firmamento. Sin embargo, su misión choca con los Yatarkas del Sur, quienes se oponen al regreso de la noche, temiendo que restaurar el ciclo traiga consigo la aterradora "oscuridad".
+            </p>
+            <p>
+                Esta es una historia desarrollada y estructurada por Moru y Ryoban, todos los personajes presentados aqui fueron diseñados inicialmente por el TEAM S.P.E.E.D, 
+            </p>
+        </div>
+    </div>
+</section>
+
+
+        <footer class="nature-footer">
+            <p>TERMINAL RYOBAN // PROCESADO EN LENOVO_UNIT</p>
+            <div class="badge-row">
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function createParticles() {
+            const container = document.getElementById('particle-container');
+            const particleCount = 45;
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                const size = Math.random() * 4 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = Math.random() * 100 + 'vh';
+                particle.style.animationDuration = (Math.random() * 10 + 8) + 's';
+                particle.style.animationDelay = (Math.random() * 5) + 's';
+                container.appendChild(particle);
+            }
+        }
+        window.onload = createParticles;
+    </script>
+</body>
+</html>
