@@ -13,8 +13,8 @@ body {
 /* --- EL CONTENEDOR CENTRAL --- */
 .page-container {
     width: 100%;
-    max-width: 900px; /* Ancho fijo como en tu referencia */
-    background-color: #7f7f7f; /* El verde bosque original */
+    max-width: 700px; /* Ancho fijo como en tu referencia */
+    background-color: #9a9a9a9c; /* El verde bosque original */
     border-left: 3px solid #a2ff00; /* Bordes de neón laterales */
     border-right: 3px solid #a2ff00;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.9);
@@ -22,13 +22,58 @@ body {
     z-index: 10;
 }
 
-/* --- HERO SECTION: CENTRADO Y SOLAPAMIENTO --- */
-.hero-section {
-    padding: 50px 50px;
-    text-align: center;
-    border-bottom: 2px dashed rgba(162, 255, 0, 0.2);
+/* --- ESTILO DEV-LOG RETRO --- */
+.indie-text-block {
+    font-family: 'Space Mono', monospace; /* Fuente de código */
+    text-align: left; /* Alineado a la izquierda como en tu imagen */
+    max-width: 800px;
+    margin: 0px auto;
+    padding: 0 20px;
 }
 
+.indie-text-block p {
+    color: #ffffff;
+    font-size: 1rem;
+    line-height: 1.8; /* Espaciado amplio para lectura cómoda */
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+    text-transform: lowercase; /* Opcional: para ese look indie extra */
+}
+
+/* Forzamos que los nombres propios NO sean minúsculas si usas lowercase */
+.indie-text-block p strong, 
+.indie-text-block p b {
+    text-transform: none;
+    color: #a2ff00;
+}
+
+/* --- LÍNEAS PUNTEADAS --- */
+.dashed-separator {
+    border: none;
+    border-top: 2px dotted rgba(162, 255, 0, 0.5); /* Punteado verde suave */
+    margin: 20px 0;
+    width: 100%;
+}
+
+.thanks-note {
+    font-style: italic;
+    opacity: 0.8;
+    margin-top: 0px;
+}
+
+.logo-wrapper {
+    width: 100%;
+    max-width: 600px; 
+    margin: 70px auto 0; /* EL '50px' EMPUJA EL LOGO HACIA ABAJO */
+    display: flex;
+    justify-content: center;
+}
+.main-logo {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 0 15px rgba(162, 255, 0, 0.3)); /* Brillo sutil verde */
+    z-index: 1;
+}
 .nature-title {
     font-family: 'Playfair Display', serif;
     font-size: 10rem;
@@ -50,18 +95,11 @@ body {
 }
 
 .hero-banner-wrapper {
-    /* Eliminamos el max-width que lo limitaba a 800px */
-    /* max-width: 800px;  <-- BORRAR ESTA LÍNEA */
 
-    /* Hacemos que sea más ancho que su contenedor padre (el de 900px) */
-    width: 115%;
-    
-    /* Truco para centrar elementos más anchos que su padre:
-       Movemos a la izquierda la mitad del exceso (15% / 2 = 7.5%) */
+    width: 110%;
+
     margin-left: -12%;
-
-    /* Mantenemos la superposición vertical y la animación */
-    margin-top: -100px;
+    margin-top: -180px;
     margin-bottom: 30px;
     z-index: 5;
     position: relative;
@@ -73,14 +111,13 @@ body {
     75% { transform: rotate(-1.5deg) translateY(10px); }
 }
 
-/* BUSCA ESTA REGLA Y REEMPLÁZALA */
+
 .hero-banner {
     width: 110%;
     position: center;
     display: block;
 }
 
-/* --- PERSONAJES (SIN CONTENEDOR BLANCO) --- */
 .character-section {
     padding: 80px 40px;
     border-bottom: 1px dashed rgba(162, 255, 0, 0.1);
@@ -179,6 +216,91 @@ body {
     text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
 }
 
+/* --- DISEÑO DE TABLAS TÉCNICAS (ESTILO INDIE) --- */
+.character-stats-section {
+    padding: 20px 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.stats-flex-container {
+    display: flex;
+    gap: 30px;
+    width: 100%;
+    max-width: 800px;
+    justify-content: space-around;
+}
+
+/* --- TARJETA DE ARCHIVO ACTUALIZADA --- */
+.data-table {
+    flex: 1;
+    max-width: 400px;
+    background: #2a2a2a; /* Fondo gris oscuro como en tu imagen */
+    border: 2px solid #a2ff00; /* Marco verde brillante */
+    border-radius: 12px;
+    overflow: hidden;
+    font-family: 'Space Mono', monospace;
+}
+
+/* Contenedor de la imagen superior */
+.table-img-container {
+    width: 100%;
+    height: 200px; /* Ajusta la altura a tu gusto */
+    overflow: hidden;
+    background: #000;
+}
+
+.table-main-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Para que la imagen llene el espacio sin deformarse */
+    display: block;
+}
+
+/* Barra de título debajo de la imagen */
+.table-title {
+    background: #a2ff00;
+    color: #000;
+    text-align: center;
+    padding: 8px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.table-content {
+    padding: 15px;
+}
+
+.t-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px dashed rgba(162, 255, 0, 0.2); /* Divisores punteados */
+}
+
+/* Colores de etiquetas y valores */
+.t-label {
+    color: #a2ff00; /* Verde neón para las etiquetas */
+    font-size: 0.8rem;
+}
+
+.t-value {
+    color: #ffffff; /* Blanco para los datos */
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+/* Ajuste para móviles en tu Lenovo */
+@media (max-width: 600px) {
+    .stats-flex-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .data-table {
+        width: 100%;
+    }
+}
 @keyframes floatUp {
     from { transform: translateY(100vh); opacity: 0; }
     to { transform: translateY(-10vh); opacity: 0; }
