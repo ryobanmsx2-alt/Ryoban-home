@@ -1,168 +1,432 @@
 
-* { box-sizing: border-box; }
-body {
+* {
     margin: 0;
     padding: 0;
-    background-color: #008080;
-    font-family: 'Pixelify Sans', sans-serif;
-    color: #000;
-    min-height: 100vh;
-    overflow: hidden; 
+    box-sizing: border-box;
 }
 
 
-.desktop-wrapper {
-    width: 800px;
-    height: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    display: flex;
-    gap: 30px;
+:root {
+    --bg-color: #c3c3c3; 
+    --main-green: #000000; 
+    --darker-green: #99cc00; 
+    --font-family: 'VT323', monospace; 
+    --glow: 0 0 10px rgba(204, 255, 0, 0.7); 
 }
 
-
-.desktop-icons {
+body {
+    background-color: var(--bg-color);
+    font-family: var(--font-family);
+    color: var(--main-green);
+    
     display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 80px;
-    padding-top: 10px;
-}
-
-.icon-item {
-    display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    text-align: center;
-    cursor: pointer;
-    text-decoration: none;
+    min-height:100vh;
+    
+ 
+    overflow-x: hidden; 
+    overflow-y: auto;   
+    padding: 2rem 0; 
+    
+    
 }
 
-.icon-item a {
-    text-decoration: none;
-    color: inherit;
+.container {
+    width: 85%;
+    max-width: 450px; 
+    margin: auto;
+    z-index: 20;
+    
+
     display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.icon-item img {
-    width: 32px;
-    height: 32px;
-    image-rendering: pixelated;
-    margin-bottom: 5px;
-}
-
-.icon-item span {
-    color: #fff;
-    font-size: 0.7rem;
-    background: transparent;
-    padding: 2px 4px;
-    /* Efecto de selección retro al pasar el mouse */
-}
-
-.icon-item:hover span {
-    background: #000080;
-}
-
-/* --- VENTANA PRINCIPAL --- */
-.main-window {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.retro-window {
-    background: #c0c0c0;
-    border: 2px solid;
-    border-color: #fff #808080 #808080 #fff;
-}
-
-.window-header {
-    background: linear-gradient(90deg, #000080, #1084d0);
-    color: white;
-    padding: 4px 8px;
-    font-weight: bold;
-    font-size: 0.8rem;
-    display: flex;
-    justify-content: space-between;
-}
-
-.window-body {
-    padding: 15px;
-    border: 2px inset #fff;
-    margin: 4px;
-    background: #fff;
-}
-
-.window-body.no-padding { padding: 0; }
-
-.hero-flex {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-}
-
-.pixel-avatar {
-    width: 100px;
-    border: 2px solid #000;
-}
-
-.pixel-title {
-    font-family: 'Press Start 2P', cursive;
-    font-size: 1rem;
-    margin: 0 0 8px 0;
-}
-
-/* --- TABLA --- */
-.retro-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.85rem;
-}
-
-.retro-table th {
-    background: #e0e0e0;
-    padding: 6px;
-    border: 1px solid #808080;
-}
-
-.retro-table td {
-    padding: 6px;
-    border: 1px solid #e0e0e0;
-}
-
-/* --- FOOTER --- */
-.badges-footer {
-    background: #c0c0c0;
-    border-top: 2px solid #808080;
-    padding: 8px;
-}
-
-.badge-list {
-    display: flex;
-    gap: 8px;
     justify-content: center;
 }
 
-.badge-list img {
-    width: 88px;
-    height: 31px;
-    image-rendering: pixelated;
+.terminal-card {
+    background: #ccff02; /* Negro puro para la tarjeta */
+    padding: 2rem;
+    
+    /* Borde verde y marcado */
+    border: 2px solid var(--main-green);
+    border-radius: 5px; /* Casi cuadrado */
+    
+    /* Resplandor exterior (Glow) */
+    box-shadow: 0 0 15px rgba(204, 255, 0, 0.3);
+    border: 2px dashed #000000; /* Línea de guiones verde lima */
+    text-align: left; /* Típico de terminales */
 }
 
-.sidebar-status-mini {
-    color: #fff;
-    font-size: 0.75rem;
-    text-align: right;
+h1 {
+    font-size: 2.5rem;
+    font-weight: normal;
+    text-transform: uppercase;
+    text-shadow: var(--glow);
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: var(--main-green);
+    opacity: 0.7;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px dashed var(--main-green);
+    padding-bottom: 0.5rem;
+}
+
+.visual-content {
+    margin: 2rem 0;
+}
+
+.placeholder {
+    width: 100%;
+    aspect-ratio: 16 / 9; 
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--main-green);
+    
+    /* Estilo texto ASCII */
+    color: var(--main-green);
+    font-size: 1.5rem;
+    white-space: pre; 
+}
+
+.info {
+    font-size: 1.2rem;
+    line-height: 1.4;
+    margin-bottom: 2rem;
+}
+
+.info p {
+    margin-bottom: 0.5rem;
+}
+
+
+.info p::after {
+    content: "_";
+    animation: blink 1s infinite;
+}
+
+.links {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.links a {
+    text-decoration: none;
+    color: var(--bg-color); 
+    background-color: var(--main-green); 
+    font-weight: bold;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border-radius: 3px;
+    transition: all 0.2s;
+    text-transform: uppercase;
+}
+
+.links a:hover {
+    background-color: #fff; 
+    color: #000;
+    box-shadow: var(--glow);
+}
+
+.retro-img {
+    width: 100%;       
+    max-width: 410px; 
+    height: auto;      
+    display: block;
+    border: none;      
+    box-shadow: none;  
+
+    border: 2px solid #000000; /* Línea verde lima sólida */
+    box-shadow: 0 0 15px rgb(204, 255, 0); /* Resplandor neón */
+    /* Pequeño redondeado opcional para que no sea tan rudo */
+    border-radius: 4px;
+        image-rendering: pixelated;
+}
+
+.organic-sticker {
+    position: absolute; /* Flota sobre todo */
+    z-index: 100;
+    top: 10% ; /* Posición inicial */
+    left: 10%;
+    
+    width: 120px; /* Ajusta el tamaño */
+    height: auto;
+    
+    cursor: grab; /* Cambia el cursor a una manita */
+    
+    /* Evita que el usuario seleccione la imagen por accidente al arrastrar */
+    user-select: none;
+    -webkit-user-drag: none;
+
+    /* Toque retro opcional (si es pixel art) */
+    image-rendering: pixelated; 
+
+    /* EL TRUCO MÁGICO: Sombra orgánica que sigue la forma del PNG */
+    filter: drop-shadow(0 0 5px rgba(204, 255, 0, 0.7));
+    
+    /* Eliminamos cualquier borde o fondo previo */
+    border: none;
+    background: transparent;
+}
+
+.organic-sticker:active {
+    cursor: grabbing; /* Manita cerrada al arrastrar */
+    filter: drop-shadow(0 0 10px rgba(204, 255, 0, 0.9)); /* Resplandece más */
+}
+
+/* Menú superior */
+.terminal-menu {
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid var(--main-green);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.terminal-menu a {
+    color: var(--main-green);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: 0.3s;
+}
+
+.terminal-menu a:hover {
+    background: var(--main-green);
+    color: #000;
+}
+
+/* Nuevo estilo para el contenedor del logo en el H1 */
+.logo-title {
+    display: flex; /* Para alinear '>' y el logo en la misma línea */
+    align-items: center; /* Centrar verticalmente */
+    gap: 15px; /* Espacio entre '>' y el logo */
+    margin-bottom: 0.5rem;
+    
+}
+
+/* Estilo para el prefijo '>' */
+.prompt-prefix {
+    font-size: 3rem; /* Tamaño grande, similar al H1 antiguo */
+    color: var(--bg-color); /* Usamos el color de fondo (negro) */
+    font-family: var(--font-family);
+    text-shadow: var(--glow); /* Le damos el resplandor verde */
+}
+
+
+/* Animación de resplandor (pulso suave) */
+@keyframes pulse-glow {
+    0% { filter: drop-shadow(0 0 5px rgb(255, 255, 255)); }
+    50% { filter: drop-shadow(0 0 15px rgb(255, 255, 255)); }
+    100% { filter: drop-shadow(0 0 5px rgb(255, 255, 255)); }
+}
+
+/* Animación de parpadeo tipo CRT (falla eléctrica) */
+@keyframes quick-flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+    }
+    20%, 24%, 55% {
+        opacity: 0.7; 
+    }
+}
+
+
+@keyframes pulse-text {
+    0% { text-shadow: 0 0 5px rgb(204, 255, 0); }
+    50% { text-shadow: 0 0 15px rgba(204, 255, 0, 1); }
+    100% { text-shadow: 0 0 5px rgb(204, 255, 0); }
+}
+
+.prompt-prefix {
+    font-size: 3rem;
+    color: var(--bg-color);
+    font-family: var(--font-family);
+
+    animation: pulse-text 2s infinite, quick-flicker 4s infinite;
+}
+
+.header-logo {
+    height: 140px;
+    width: 380px;
+    display: block;
+        image-rendering: pixelated;
+    /* Aplicamos el pulso de brillo y el parpadeo al logo */
+    animation: pulse-glow 2s infinite, quick-flicker 4s infinite;
+}
+
+/* Contenedor que envuelve ambas tarjetas */
+.main-wrapper {
+    display: grid;
+    /* Crea dos columnas de igual tamaño */
+    grid-template-columns: 1fr 1fr; 
+    gap: 25px; /* Espacio entre las columnas */
+    width: 95%;
+    max-width: 1000px; /* Ancho máximo para que no se estire demasiado */
+    margin: auto; /* Centra el bloque completo */
+    align-items: start; /* Alinea las tarjetas al inicio superior */
+}
+
+/* Responsive: Si la pantalla es pequeña (celulares), se ponen una abajo de la otra */
+@media (max-width: 850px) {
+    .main-wrapper {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Estilos extra para los enlaces de la derecha */
+.project-list, .character-links {
+    list-style: none;
     margin-top: 10px;
 }
 
-.cursor {
-    animation: blink 1s step-end infinite;
+.project-list li, .character-links p {
+    margin-bottom: 12px;
 }
 
-@keyframes blink {
-    50% { color: transparent; }
+.project-list a, .character-links a {
+    color: var(--main-green);
+    text-decoration: none;
+    border: 1px solid transparent;
+    padding: 2px 4px;
+    transition: 0.2s;
+}
+
+.project-list a:hover, .character-links a:hover {
+    background: var(--main-green);
+    color: #000;
+    border-color: #000;
+}
+
+/* Contenedor para permitir scroll horizontal en móviles si la tabla es ancha */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 15px;
+}
+
+.project-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-family);
+    color: var(--main-green);
+    border: 1px solid var(--main-green);
+}
+
+.project-table th {
+    background-color: var(--main-green);
+    color: #000; /* Texto negro sobre fondo verde para el encabezado */
+    padding: 10px;
+    text-align: left;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+}
+
+.project-table td {
+    padding: 10px;
+    border: 1px dashed var(--main-green); /* Bordes punteados para estilo retro */
+    vertical-align: top;
+}
+
+/* Efecto hover en las filas */
+.project-table tr:hover {
+    background: rgba(204, 255, 0, 0.1);
+}
+
+.project-table a {
+    color: var(--main-green);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.project-table a:hover {
+    text-decoration: underline;
+    text-shadow: var(--glow);
+}
+
+/* Contenedor para toda la sección de personajes */
+.character-display {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Espacio entre cada tarjeta de personaje */
+    margin-top: 15px;
+}
+
+/* Tarjeta individual de personaje */
+.character-profile-card {
+    display: flex;
+    align-items: center; /* Centra la imagen verticalmente respecto al texto */
+    gap: 15px; /* Espacio entre la miniatura y el texto */
+    border: 1px dashed var(--main-green); /* Borde punteado retro */
+    padding: 10px;
+    border-radius: 4px;
+    transition: 0.3s ease;
+    background-color: rgba(0, 0, 0, 0.05); /* Fondo muy sutil */
+}
+
+/* Efecto hover para la tarjeta */
+.character-profile-card:hover {
+    background: rgba(204, 255, 0, 0.1);
+    border-style: solid; /* Cambia a borde sólido al pasar el mouse */
+    box-shadow: 0 0 10px rgba(204, 255, 0, 0.3);
+}
+
+/* La miniatura (thumbnail) */
+.char-thumb {
+    width: 60px; /* Tamaño fijo de la miniatura */
+    height: 60px;
+    object-fit: cover; /* Asegura que la imagen llene el cuadrado sin deformarse */
+    border: 2px solid var(--main-green); /* Borde verde neón alrededor de la foto */
+    border-radius: 4px; /* Un poco redondeado para estilo sticker */
+    image-rendering: pixelated; /* ¡Importante! Mantiene el estilo retro si son pixeles */
+    background-color: #000; /* Fondo negro por si la imagen tarda en cargar */
+}
+
+/* Contenedor de texto al lado de la miniatura */
+.char-info {
+    flex: 1; /* Ocupa el espacio restante */
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.char-info h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #000; /* Texto negro sobre fondo amarillo */
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.char-info p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #333; /* Un gris oscuro para legibilidad */
+    line-height: 1.4;
+}
+
+.char-info a {
+    color: var(--main-green);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.char-info a:hover {
+    text-decoration: underline;
+}
+
+/* Ajuste responsive para móviles */
+@media (max-width: 500px) {
+    .character-profile-card {
+        flex-direction: column; /* Se ponen uno abajo del otro en pantallas pequeñas */
+        text-align: center;
+    }
+    .char-thumb {
+        width: 80px; /* Un poco más grande en móvil si está centrado */
+        height: 80px;
+    }
 }

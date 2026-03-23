@@ -2,95 +2,172 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=800">
-    <title>Ryoban OS - Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Retro Centered Project</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="estilos.css">
 </head>
-
 <body>
-
-
-    <div class="desktop-wrapper">
-        
-        <main class="main-window">
-            
-            <section class="retro-window">
-                <div class="window-header">
-                    <span>BIENVENIDO.exe</span>
-                    <div class="controls">_ [] X</div>
-                </div>
-                <div class="window-body">
-                    <div class="hero-flex">
-                        <div class="profile-container">
-                            <img src="a13.png" alt="Ryoban" class="pixel-avatar">
-                        </div>
-                        <div class="hero-text">
-                            <h2 class="pixel-title">HOLA.</h2>
-                            <p>Soy <strong>Ryoban</strong>. Artista conceptual y el unico imbecil a cargo de esto. Anteriormente familiarizado con las firmas de Moru Y Khoa. Este espacio esta dedicado a todas las personas que encuentren interesante desaparecer de toda la mierda generalizada de la web convencional.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="retro-window">
-                <div class="window-header">
-                    <span>DIRECTORIO_DE_ARCHIVOS</span>
-                </div>
-                <div class="window-body no-padding">
-                    <table class="retro-table">
-                        <thead>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Descripción</th>
-                                <th>Tipo</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><a href="paraxterra.html">PARAXTERRA</a></td>
-                                <td>PARAX ° Terra (tierra paralela). Un proyecto que ha estado mutando desde el año 2022.La historia sigue a Adeline, una Yatarka del sur, que se autoimplica en la delicada tarea de dormir en un mundo donde el sol se ha quedado estatico en un mismo lugar desde hace miles de años.</td>
-                                <td>PROYECTO</td>
-                            </tr>
-                            <tr>
-                                <td><a href="musica.html">MÚSICA</a></td>
-                                <td>Tracks y beats para escuchar. La mayoria de canciones que he estado esuchando desde hace 12 años, algunas implicaron cambios radicales en mis personajes, digamos que este espacio es un tributo deciso a aquellas canciones que me marcaron significativamente.</td>
-                                <td>AUDIO</td>
-                            </tr>
-                            <tr>
-                                <td>BLOG</td>
-                                <td>Pensamientos y cosas pasajeras.</td>
-                                <td>TXT</td>
-                            </tr>
-                            <tr>
-                                <td><a href="personajes.html">PERSONAJES</a></td>
-                                <td>Perfiles actuales</td>
-                                <td>Perfiles</td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <footer class="badges-footer">
-                        <div class="dir-header">CONNECTED_NETWORKS</div>
-                        <div class="badge-list">
-                            <img src="msx.gif" alt="Powered by Debian">
-                            <img src="tbosg.gif" alt="I Love PHP">
-                            <img src="webpeople.gif" alt="Made with Notepad++">
-                            <img src="000010.gif" alt="Agender Pride">
-                            <img src="button_openmpt.png" alt="Made with OpenMPT">
-                            <img src="button_webp.png" alt="No WebP!">
-                        </div>
-                    </footer>
-
-                </div>
-            </section>
-
-            <div class="sidebar-status-mini">
-                <p>Sistema: Online<span class="cursor">_</span> | Memoria: 640KB OK</p>
-            </div>
-
-        </main>
+    <div id="floating-widget" class="drag-container">
+    <div class="drag-content">
+        <img src="cat.png" alt="Sticker 1" class="organic-sticker draggable" style="top: 10%; left: 10%;">
+        <img src="cat2.png" alt="Sticker 2" class="organic-sticker draggable" style="top: 20%; left: 70%;">
     </div>
+    </div>
+    <div class="scanlines"></div>
+
+<main class="main-wrapper">
+    <section class="terminal-card">
+        <header>
+            <h1 class="logo-title">
+
+                <img src="logo.png" alt="Ryoban Logo" class="header-logo">
+            </h1>
+            <p class="subtitle">System Status: Online</p>
+        </header>
+
+        <div class="visual-content">
+            <img src="icono.png" alt="Ryoban Art" class="retro-img">
+        </div>
+
+        <article class="info">
+            <p>Iniciando protocolo de diseño..._</p>
+        </article>
+    </section>
+
+    <section class="terminal-card">
+        <nav class="terminal-menu">
+            <a href="#proyectos">[ PROYECTOS ]</a>
+            <a href="#personajes">[ PERSONAJES ]</a>
+            <a href="#blog">[ BLOG ]</a>
+        </nav>
+
+<section id="proyectos" class="content-block">
+    <h2>> query_database --projects</h2>
+    <div class="table-container">
+        <table class="project-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>PROYECTO</th>
+                    <th>ESTADO / DESCRIPCIÓN</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>[P-01]</td>
+                    <td><a href="#">Paraxterra</a></td>
+                    <td>Adeline y Albert buscan la luna.</td>
+                </tr>
+                <tr>
+                    <td>[P-02]</td>
+                    <td><a href="#">Metal Worms</a></td>
+                    <td>Historia sobre ABEA y ASCEND.</td>
+                </tr>
+                <tr>
+                    <td>[P-03]</td>
+                    <td><a href="#">HYPERZONE</a></td>
+                    <td>Archivo musical y multimedia.</td>
+                </tr>
+                <tr>
+                    <td>[P-04]</td>
+                    <td><a href="#">Dev_Blog</a></td>
+                    <td>Bitácora de desarrollo y conceptos.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section id="personajes" class="content-block">
+    <h2>> run character_bios.exe</h2>
+    <div class="character-display">
+        
+        <div class="character-profile-card">
+            <img src="sun.gif" alt="Adeline" class="char-thumb">
+            <div class="char-info">
+                <h3>Adeline</h3>
+                <p>Exploradora principal de Paraxterra. Analítica y curiosa. Busca incansablemente la luna junto a Albert. <a href="#">[ Perfil Completo ]</a></p>
+            </div>
+        </div>
+
+        <div class="character-profile-card">
+            <img src="moon.gif" alt="Albert" class="char-thumb">
+            <div class="char-info">
+                <h3>Albert</h3>
+                <p>El compañero razonable de Adeline. Experto en análisis de datos antiguos. Suave pero firme en su misión. <a href="#">[ Perfil Completo ]</a></p>
+            </div>
+        </div>
+
+        <div class="character-profile-card">
+            <img src="tree.gif" alt="Palmer" class="char-thumb">
+            <div class="char-info">
+                <h3>Palmer</h3>
+                <p>Identidad que prefiere la suavidad y la razón. Disfruta de la vida cotidiana y mundana junto a Derry. <a href="#">[ Perfil Completo ]</a></p>
+            </div>
+        </div>
+
+
+        <div class="character-profile-card">
+            <img src="thumb_ryoban.png" alt="Ryoban" class="char-thumb">
+            <div class="char-info">
+                <h3>Ryoban</h3>
+                <p>Identidad principal. Creador de mundos y analista curioso. Prefiere el diseño directo y minimalista. <a href="#">[ Perfil Completo ]</a></p>
+            </div>
+        </div>
+
+        <div class="character-profile-card">
+            <img src="thumb_moru.png" alt="Moru" class="char-thumb">
+            <div class="char-info">
+                <h3>Moru</h3>
+                <p>Perfil secundario. Enigmático y de pocas palabras. Acceso a datos restringido. <a href="#">[ Perfil Completo ]</a></p>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+        <section id="blog" class="content-block">
+            <h2>> cat blog.txt</h2>
+            <p>Explico por qué desarrollo estos proyectos.</p>
+            <a href="#" class="blog-link">>> Ver entradas</a>
+        </section>
+    </section>
+</main>
+<script>
+const draggables = document.querySelectorAll('.draggable');
+let activeElement = null;
+let offset = [0, 0];
+
+draggables.forEach(sticker => {
+    sticker.addEventListener('mousedown', (e) => {
+        activeElement = sticker;
+        isDragging = true;
+        offset = [
+            sticker.offsetLeft - e.clientX,
+            sticker.offsetTop - e.clientY
+        ];
+        // Lo ponemos por encima de otros al tocarlo
+        sticker.style.zIndex = "1000"; 
+    }, true);
+});
+
+document.addEventListener('mouseup', () => {
+    if (activeElement) {
+        activeElement.style.zIndex = "100"; // Regresa a su nivel normal
+        activeElement = null;
+    }
+}, true);
+
+document.addEventListener('mousemove', (e) => {
+    if (activeElement) {
+        e.preventDefault();
+        activeElement.style.left = (e.clientX + offset[0]) + 'px';
+        activeElement.style.top  = (e.clientY + offset[1]) + 'px';
+    }
+}, true);
+</script>
+
 
 </body>
 </html>
